@@ -475,7 +475,8 @@
                 <label>🏷️ Your Name:</label>
                 <input type="text" class="form-control" id="usernameInput" 
                        placeholder="Enter your name to join the fun!" 
-                       onchange="updateUsername()">
+                       onchange="updateUsername()" 
+                       oninput="updateUsername()">
             </div>
 
             <h3>🌟 Who's Online:</h3>
@@ -576,6 +577,18 @@
                 case 'api_response':
                     displayResponse(message.response, message.timing);
                     addActivity(`🎯 ${message.userId} got a response from ${new URL(message.request.url).hostname}!`);
+                    break;
+                
+                case 'api_request_executed':
+                    // Show when other users make API requests and display their response
+                    const statusEmoji = message.status >= 200 && message.status < 300 ? '✅' : '❌';
+                    const hostname = new URL(message.url).hostname;
+                    addActivity(`🚀 ${message.userName} made a ${message.method} request to ${hostname} ${statusEmoji} (${message.status})`);
+                    
+                    // Also display the response in the response area for collaborative viewing
+                    if (message.response) {
+                        displayCollaborativeResponse(message.response, message.userName, message.method, hostname);
+                    }
                     break;
                 
                 case 'user_joined':
@@ -702,15 +715,58 @@
             displayContent += '📦 Response Data:\n';
             try {
                 if (typeof response.data === 'object') {
-                    displayContent += JSON.stringify(response.data, null, 2);
+                    displayContent += '<pre>' + JSON.stringify(response.data, null, 2) + '</pre>';
                 } else {
-                    displayContent += response.data;
+                    displayContent += '<pre>' + response.data + '</pre>';
                 }
             } catch (error) {
-                displayContent += 'Could not display response data';
+                displayContent += '<pre>Could not display response data</pre>';
             }
             
-            responseArea.textContent = displayContent;
+            responseArea.innerHTML = displayContent; // Changed from textContent to innerHTML
+            responseArea.scrollTop = 0;
+        }
+
+        function displayCollaborativeResponse(response, userName, method, hostname) {
+            const responseArea = document.getElementById('responseArea');
+            const status = response.status;
+            const isSuccess = status >= 200 && status < 300;
+            
+            const statusClass = isSuccess ? 'status-success' : 'status-error';
+            const statusEmoji = isSuccess ? '🎉' : '😅';
+            
+            let displayContent = '';
+            
+            // Collaborative header
+            displayContent += `<div style="background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); color: white; padding: 10px 15px; border-radius: 10px; margin-bottom: 15px; font-weight: bold;">`;
+            displayContent += `👥 Shared Response from ${userName}<br>`;
+            displayContent += `🚀 ${method} request to ${hostname}`;
+            displayContent += `</div>`;
+            
+            // Status indicator
+            displayContent += `<div class="status-indicator ${statusClass}">
+                ${statusEmoji} ${status} - ${getStatusMessage(status)}
+            </div>\n\n`;
+            
+            // Timing info
+            if (response.responseTime) {
+                const timeEmoji = response.responseTime < 500 ? '⚡' : response.responseTime < 2000 ? '🏃' : '🐌';
+                displayContent += `${timeEmoji} Response time: ${response.responseTime}ms\n\n`;
+            }
+            
+            // Response data
+            displayContent += '📦 Response Data:\n';
+            try {
+                if (typeof response.data === 'object') {
+                    displayContent += '<pre>' + JSON.stringify(response.data, null, 2) + '</pre>';
+                } else {
+                    displayContent += '<pre>' + response.data + '</pre>';
+                }
+            } catch (error) {
+                displayContent += '<pre>Could not display response data</pre>';
+            }
+            
+            responseArea.innerHTML = displayContent;
             responseArea.scrollTop = 0;
         }
 

@@ -193,14 +193,27 @@ function sendToUser(userId, message) {
 function getOnlineUsers() {
     const onlineUsers = [];
     users.forEach((userData, userId) => {
-        onlineUsers.push({
-            id: userId,
-            name: userData.name,
-            joinedAt: userData.joinedAt,
-            lastActive: userData.lastActive
-        });
+        if (userData.isRegistered && userData.name) {
+            onlineUsers.push({
+                id: userId,
+                name: userData.name,
+                joinedAt: userData.joinedAt,
+                lastActive: userData.lastActive
+            });
+        }
     });
     return onlineUsers;
+}
+
+// Get online user names (simpler version)
+function getOnlineUserNames() {
+    const names = [];
+    users.forEach((userData, userId) => {
+        if (userData.isRegistered && userData.name) {
+            names.push(userData.name);
+        }
+    });
+    return names;
 }
 
 // WebSocket connection handler
@@ -211,9 +224,10 @@ wss.on('connection', (ws, req) => {
     // Initialize user data
     users.set(userId, {
         ws,
-        name: `User ${userId.slice(0, 8)}`,
+        name: null, // Start with no name until user sets it
         joinedAt: new Date().toISOString(),
-        lastActive: new Date().toISOString()
+        lastActive: new Date().toISOString(),
+        isRegistered: false
     });
 
     // Send welcome message
@@ -222,17 +236,6 @@ wss.on('connection', (ws, req) => {
         userId,
         message: '🎉 Welcome! You\'re now connected to the API collaboration server!'
     }));
-
-    // Broadcast user joined
-    broadcast({
-        type: 'user_joined',
-        user: {
-            id: userId,
-            name: users.get(userId).name,
-            joinedAt: users.get(userId).joinedAt
-        },
-        onlineUsers: getOnlineUsers()
-    }, userId);
 
     // Handle incoming messages
     ws.on('message', async (data) => {
@@ -243,23 +246,30 @@ wss.on('connection', (ws, req) => {
             console.log(`📨 Message from ${userId}:`, message.type);
 
             switch (message.type) {
-                case 'set_user_name':
-                    if (message.name && typeof message.name === 'string' && message.name.trim()) {
-                        const oldName = users.get(userId).name;
-                        users.get(userId).name = message.name.trim();
+                case 'join':
+                    if (message.username && typeof message.username === 'string' && message.username.trim()) {
+                        const userName = message.username.trim();
+                        users.get(userId).name = userName;
+                        users.get(userId).isRegistered = true;
                         
-                        broadcast({
-                            type: 'user_name_changed',
-                            userId,
-                            oldName,
-                            newName: message.name.trim(),
-                            onlineUsers: getOnlineUsers()
+                        console.log(`👋 User ${userId} registered as: ${userName}`);
+                        
+                        // Send confirmation to the user
+                        sendToUser(userId, {
+                            type: 'user_registered',
+                            username: userName,
+                            message: `🎉 Welcome ${userName}! You're now part of the playground!`
                         });
 
-                        sendToUser(userId, {
-                            type: 'name_updated',
-                            message: `✅ Your name has been updated to "${message.name.trim()}"!`
+                        // Broadcast to all users (including the new user)
+                        const onlineUsers = getOnlineUserNames();
+                        broadcast({
+                            type: 'user_joined',
+                            username: userName,
+                            users: onlineUsers
                         });
+
+                        console.log(`📊 Online users: ${onlineUsers.join(', ')}`);
                     }
                     break;
 
@@ -299,13 +309,14 @@ wss.on('connection', (ws, req) => {
                             message: '✅ API request completed successfully!'
                         });
 
-                        // Broadcast to other users (without full response data for privacy)
+                        // Broadcast to other users (with full response data for collaboration)
                         broadcast({
                             type: 'api_request_executed',
                             requestId,
                             method: message.request.method,
                             url: message.request.url,
                             status: response.status,
+                            response: response, // Include full response for collaboration
                             userId,
                             userName: users.get(userId).name,
                             timestamp: historyEntry.timestamp
@@ -481,15 +492,16 @@ wss.on('connection', (ws, req) => {
         console.log(`👋 User disconnected: ${userId}`);
         
         const userData = users.get(userId);
-        if (userData) {
+        if (userData && userData.isRegistered && userData.name) {
+            // Broadcast user left to remaining users
+            const remainingUsers = getOnlineUserNames().filter(name => name !== userData.name);
             broadcast({
                 type: 'user_left',
-                user: {
-                    id: userId,
-                    name: userData.name
-                },
-                onlineUsers: getOnlineUsers().filter(user => user.id !== userId)
+                username: userData.name,
+                users: remainingUsers
             });
+            
+            console.log(`📊 Remaining users: ${remainingUsers.join(', ')}`);
         }
 
         users.delete(userId);
