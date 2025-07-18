@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 API Adventure Playground - Test APIs Together!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: #4a5568;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 3px solid #e2e8f0;
+        }
+
+        .panel h2 {
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 1.1em;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 3px solid #e2e8f0;
+            border-radius: 15px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .method-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .method-btn {
+            padding: 10px 20px;
+            border: 3px solid #e2e8f0;
+            background: white;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .method-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .method-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .headers-section {
+            border: 2px dashed #e2e8f0;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .header-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .header-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: inherit;
+        }
+
+        .remove-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .add-header-btn {
+            background: #4ecdc4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .add-header-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .response-area {
+            background: #f8fafc;
+            border: 3px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 20px;
+            min-height: 300px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow-y: auto;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .status-success {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .status-error {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .collaboration-panel {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .users-online {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .user-badge {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .activity-feed {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .collections-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px dashed #e2e8f0;
+        }
+
+        .collection-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .collection-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .connected {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .disconnected {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8em;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .method-selector {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 API Adventure Playground</h1>
+            <p>Test APIs together with your friends! It's like having a magical computer conversation! ✨</p>
+        </div>
+
+        <div class="connection-status" id="connectionStatus">
+            <span class="loading"></span> Connecting to the playground...
+        </div>
+
+        <div class="main-content">
+            <div class="panel">
+                <h2>🎯 Build Your API Request</h2>
+                
+                <div class="form-group">
+                    <label class="tooltip" data-tooltip="Choose how you want to talk to the API!">
+                        🎮 Method (How to ask):
+                    </label>
+                    <div class="method-selector">
+                        <button class="method-btn active" data-method="GET">📥 GET</button>
+                        <button class="method-btn" data-method="POST">📤 POST</button>
+                        <button class="method-btn" data-method="PUT">✏️ PUT</button>
+                        <button class="method-btn" data-method="DELETE">🗑️ DELETE</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tooltip" data-tooltip="The web address where the API lives!">
+                        🌐 URL (Where to go):
+                    </label>
+                    <input type="text" class="form-control" id="urlInput" 
+                           placeholder="https://api.example.com/data" 
+                           value="https://dog.ceo/api/breeds/image/random">
+                </div>
+
+                <div class="form-group">
+                    <label class="tooltip" data-tooltip="Extra information to send with your request!">
+                        📋 Headers (Special instructions):
+                    </label>
+                    <div class="headers-section" id="headersSection">
+                        <div class="header-row">
+                            <input type="text" class="header-input" placeholder="Header name (like Content-Type)" value="Content-Type">
+                            <input type="text" class="header-input" placeholder="Header value (like application/json)" value="application/json">
+                            <button class="remove-btn" onclick="removeHeader(this)">×</button>
+                        </div>
+                    </div>
+                    <button class="add-header-btn" onclick="addHeader()">➕ Add Header</button>
+                </div>
+
+                <div class="form-group">
+                    <label class="tooltip" data-tooltip="Data to send with POST/PUT requests!">
+                        📦 Request Body (What to send):
+                    </label>
+                    <textarea class="form-control" id="bodyInput" rows="4" 
+                              placeholder='{"message": "Hello API!"}'></textarea>
+                </div>
+
+                <button class="send-btn" id="sendBtn" onclick="sendRequest()">
+                    🚀 Launch Request!
+                </button>
+            </div>
+
+            <div class="panel">
+                <h2>📬 API Response</h2>
+                <div class="response-area" id="responseArea">
+                    🌟 Ready to receive your API response! 
+                    
+                    Try the example request to see a random dog picture! 🐕
+                    
+                    Or try these fun APIs:
+                    • https://official-joke-api.appspot.com/random_joke
+                    • https://catfact.ninja/fact
+                    • https://api.quotable.io/random
+                </div>
+            </div>
+        </div>
+
+        <div class="collaboration-panel">
+            <h2>👥 Collaboration Central</h2>
+            
+            <div class="form-group">
+                <label>🏷️ Your Name:</label>
+                <input type="text" class="form-control" id="usernameInput" 
+                       placeholder="Enter your name to join the fun!" 
+                       onchange="updateUsername()">
+            </div>
+
+            <h3>🌟 Who's Online:</h3>
+            <div class="users-online" id="usersOnline">
+                <div class="user-badge">
+                    👤 You (not connected yet)
+                </div>
+            </div>
+
+            <h3>📺 Live Activity Feed:</h3>
+            <div class="activity-feed" id="activityFeed">
+                <div class="activity-item">🎉 Welcome to the API Adventure Playground!</div>
+                <div class="activity-item">💡 Connect to see what others are doing!</div>
+                <div class="activity-item">🚀 Try the example request to get started!</div>
+            </div>
+
+            <div class="collections-section">
+                <h3>📚 Shared Collections:</h3>
+                <div id="collectionsArea">
+                    <div class="collection-item" onclick="loadExampleCollection()">
+                        <strong>🎯 Beginner's Fun Pack</strong>
+                        <p>Dog pictures, jokes, and fun facts!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // WebSocket connection
+        let ws = null;
+        let currentUser = null; // Start as null until user enters name
+        let currentMethod = 'GET';
+        let isConnected = false;
+        let isUserRegistered = false;
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            connectToServer();
+            setupEventListeners();
+            updateConnectionStatus('connecting');
+            updateUserRegistrationStatus(); // Initialize UI state
+        });
+
+        function connectToServer() {
+            try {
+                ws = new WebSocket('ws://localhost:3001');
+                
+                ws.onopen = function() {
+                    console.log('🎉 Connected to API Adventure Playground!');
+                    isConnected = true;
+                    updateConnectionStatus('connected');
+                    
+                    // Join the playground
+                    sendMessage({
+                        type: 'join',
+                        username: currentUser
+                    });
+                };
+
+                ws.onmessage = function(event) {
+                    try {
+                        const message = JSON.parse(event.data);
+                        handleServerMessage(message);
+                    } catch (error) {
+                        console.error('Error parsing message:', error);
+                    }
+                };
+
+                ws.onclose = function() {
+                    console.log('🔌 Disconnected from playground');
+                    isConnected = false;
+                    updateConnectionStatus('disconnected');
+                    
+                    // Try to reconnect after 3 seconds
+                    setTimeout(connectToServer, 3000);
+                };
+
+                ws.onerror = function(error) {
+                    console.error('WebSocket error:', error);
+                    updateConnectionStatus('error');
+                };
+
+            } catch (error) {
+                console.error('Failed to connect:', error);
+                updateConnectionStatus('error');
+            }
+        }
+
+        function sendMessage(message) {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify(message));
+            }
+        }
+
+        function handleServerMessage(message) {
+            switch (message.type) {
+                case 'api_response':
+                    displayResponse(message.response, message.timing);
+                    addActivity(`🎯 ${message.userId} got a response from ${new URL(message.request.url).hostname}!`);
+                    break;
+                
+                case 'user_joined':
+                    addActivity(`👋 ${message.username} joined the playground!`);
+                    updateOnlineUsers(message.users);
+                    break;
+                
+                case 'user_left':
+                    addActivity(`👋 ${message.username} left the playground!`);
+                    updateOnlineUsers(message.users);
+                    break;
+                
+                case 'activity_update':
+                    addActivity(message.activity);
+                    break;
+                
+                case 'error':
+                    displayError(message.error, message.friendlyMessage);
+                    break;
+                
+                case 'users_list':
+                    updateOnlineUsers(message.users);
+                    break;
+            }
+        }
+
+        function setupEventListeners() {
+            // Method selector buttons
+            document.querySelectorAll('.method-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentMethod = this.dataset.method;
+                });
+            });
+
+            // Enter key to send request
+            document.getElementById('urlInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendRequest();
+                }
+            });
+        }
+
+        function sendRequest() {
+            const url = document.getElementById('urlInput').value.trim();
+            if (!url) {
+                alert('🌐 Please enter a URL first! It\'s like giving directions to the API!');
+                return;
+            }
+
+            if (!isConnected) {
+                alert('🔌 Not connected to the playground yet! Please wait a moment and try again!');
+                return;
+            }
+
+            if (!isUserRegistered || !currentUser) {
+                showUserFeedback('👋 Please enter your name first to join the playground!');
+                document.getElementById('usernameInput').focus();
+                return;
+            }
+
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<span class="loading"></span> Launching...';
+
+            // Collect headers
+            const headers = {};
+            document.querySelectorAll('.header-row').forEach(row => {
+                const inputs = row.querySelectorAll('.header-input');
+                const name = inputs[0].value.trim();
+                const value = inputs[1].value.trim();
+                if (name && value) {
+                    headers[name] = value;
+                }
+            });
+
+            const request = {
+                method: currentMethod,
+                url: url,
+                headers: headers,
+                body: document.getElementById('bodyInput').value.trim() || undefined
+            };
+
+            // Send to server
+            sendMessage({
+                type: 'execute_api_request',
+                request: request,
+                userId: currentUser
+            });
+
+            // Add to activity
+            addActivity(`🚀 ${currentUser} launched a ${currentMethod} request to ${new URL(url).hostname}!`);
+
+            // Reset button after 5 seconds
+            setTimeout(() => {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = '🚀 Launch Request!';
+            }, 5000);
+        }
+
+        function displayResponse(response, timing) {
+            const responseArea = document.getElementById('responseArea');
+            const status = response.status;
+            const isSuccess = status >= 200 && status < 300;
+            
+            const statusClass = isSuccess ? 'status-success' : 'status-error';
+            const statusEmoji = isSuccess ? '🎉' : '😅';
+            
+            let displayContent = '';
+            
+            // Status indicator
+            displayContent += `<div class="status-indicator ${statusClass}">
+                ${statusEmoji} ${status} - ${getStatusMessage(status)}
+            </div>\n\n`;
+            
+            // Timing info
+            if (timing) {
+                const timeEmoji = timing < 500 ? '⚡' : timing < 2000 ? '🏃' : '🐌';
+                displayContent += `${timeEmoji} Response time: ${timing}ms\n\n`;
+            }
+            
+            // Response data
+            displayContent += '📦 Response Data:\n';
+            try {
+                if (typeof response.data === 'object') {
+                    displayContent += JSON.stringify(response.data, null, 2);
+                } else {
+                    displayContent += response.data;
+                }
+            } catch (error) {
+                displayContent += 'Could not display response data';
+            }
+            
+            responseArea.textContent = displayContent;
+            responseArea.scrollTop = 0;
+        }
+
+        function displayError(error, friendlyMessage) {
+            const responseArea = document.getElementById('responseArea');
+            responseArea.innerHTML = `
+                <div class="status-indicator status-error">
+                    😅 Oops! Something went wrong!
+                </div>
+                
+                <strong>Kid-friendly explanation:</strong>
+                ${friendlyMessage || 'The API had a little hiccup! It\'s like when a toy doesn\'t work as expected.'}
+                
+                <strong>Technical details:</strong>
+                ${error}
+                
+                💡 Try checking:
+                • Is the URL correct?
+                • Is your internet connection working?
+                • Maybe try a different API?
+            `;
+        }
+
+        function getStatusMessage(status) {
+            const messages = {
+                200: 'Perfect! Everything worked great!',
+                201: 'Created! Something new was made!',
+                400: 'Bad request - something was confusing',
+                401: 'Need permission - like needing a key',
+                404: 'Not found - like looking for a toy that\'s not there',
+                500: 'Server error - the computer had a hiccup'
+            };
+            return messages[status] || 'Something happened!';
+        }
+
+        function addHeader() {
+            const headersSection = document.getElementById('headersSection');
+            const headerRow = document.createElement('div');
+            headerRow.className = 'header-row';
+            headerRow.innerHTML = `
+                <input type="text" class="header-input" placeholder="Header name">
+                <input type="text" class="header-input" placeholder="Header value">
+                <button class="remove-btn" onclick="removeHeader(this)">×</button>
+            `;
+            headersSection.appendChild(headerRow);
+        }
+
+        function removeHeader(button) {
+            button.parentElement.remove();
+        }
+
+        function updateUsername() {
+            const newUsername = document.getElementById('usernameInput').value.trim();
+            if (!newUsername) {
+                // If empty, show not registered state
+                isUserRegistered = false;
+                updateUserRegistrationStatus();
+                return;
+            }
+
+            if (newUsername && newUsername !== currentUser) {
+                const oldUsername = currentUser;
+                currentUser = newUsername;
+                isUserRegistered = true;
+                
+                // Show immediate feedback
+                showUserFeedback(`🎉 Welcome ${currentUser}! You're now part of the playground!`);
+                
+                if (isConnected) {
+                    sendMessage({
+                        type: 'join',
+                        username: currentUser
+                    });
+                    
+                    // Add to activity immediately for instant feedback
+                    addActivity(`👋 ${currentUser} joined the playground!`);
+                }
+                
+                updateUserRegistrationStatus();
+            }
+        }
+
+        function updateOnlineUsers(users) {
+            const usersOnline = document.getElementById('usersOnline');
+            usersOnline.innerHTML = '';
+            
+            if (!isUserRegistered || !currentUser) {
+                // Show not registered state
+                const notRegisteredBadge = document.createElement('div');
+                notRegisteredBadge.className = 'user-badge';
+                notRegisteredBadge.style.background = '#ffd93d';
+                notRegisteredBadge.style.color = '#333';
+                notRegisteredBadge.innerHTML = '👤 Enter your name above to join!';
+                usersOnline.appendChild(notRegisteredBadge);
+                return;
+            }
+            
+            if (users && users.length > 0) {
+                users.forEach(user => {
+                    const userBadge = document.createElement('div');
+                    userBadge.className = 'user-badge';
+                    userBadge.innerHTML = `👤 ${user}`;
+                    usersOnline.appendChild(userBadge);
+                });
+            } else {
+                // Show current user at least
+                const userBadge = document.createElement('div');
+                userBadge.className = 'user-badge';
+                userBadge.innerHTML = `👤 ${currentUser} (you)`;
+                usersOnline.appendChild(userBadge);
+            }
+        }
+
+        function updateUserRegistrationStatus() {
+            updateOnlineUsers(); // Update the users display
+            
+            // Enable/disable send button based on registration
+            const sendBtn = document.getElementById('sendBtn');
+            if (isUserRegistered && currentUser) {
+                sendBtn.disabled = false;
+                sendBtn.style.opacity = '1';
+            } else {
+                sendBtn.disabled = true;
+                sendBtn.style.opacity = '0.6';
+            }
+        }
+
+        function showUserFeedback(message) {
+            // Create a temporary feedback message
+            const feedback = document.createElement('div');
+            feedback.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+                color: white;
+                padding: 20px 30px;
+                border-radius: 20px;
+                font-size: 1.2em;
+                font-weight: bold;
+                z-index: 10000;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                animation: bounceIn 0.5s ease-out;
+            `;
+            feedback.textContent = message;
+            
+            // Add bounce animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes bounceIn {
+                    0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0; }
+                    50% { transform: translate(-50%, -50%) scale(1.05); }
+                    70% { transform: translate(-50%, -50%) scale(0.9); }
+                    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(feedback);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                feedback.style.animation = 'fadeOut 0.5s ease-out';
+                setTimeout(() => {
+                    if (feedback.parentNode) {
+                        feedback.parentNode.removeChild(feedback);
+                    }
+                }, 500);
+            }, 2500);
+        }
+
+        function addActivity(activity) {
+            const activityFeed = document.getElementById('activityFeed');
+            const activityItem = document.createElement('div');
+            activityItem.className = 'activity-item';
+            activityItem.textContent = activity;
+            
+            activityFeed.insertBefore(activityItem, activityFeed.firstChild);
+            
+            // Keep only last 10 activities
+            while (activityFeed.children.length > 10) {
+                activityFeed.removeChild(activityFeed.lastChild);
+            }
+        }
+
+        function updateConnectionStatus(status) {
+            const statusElement = document.getElementById('connectionStatus');
+            
+            switch (status) {
+                case 'connected':
+                    statusElement.className = 'connection-status connected';
+                    statusElement.innerHTML = '🟢 Connected to playground!';
+                    break;
+                case 'disconnected':
+                    statusElement.className = 'connection-status disconnected';
+                    statusElement.innerHTML = '🔴 Disconnected - trying to reconnect...';
+                    break;
+                case 'connecting':
+                    statusElement.className = 'connection-status';
+                    statusElement.innerHTML = '<span class="loading"></span> Connecting...';
+                    break;
+                case 'error':
+                    statusElement.className = 'connection-status disconnected';
+                    statusElement.innerHTML = '⚠️ Connection error - retrying...';
+                    break;
+            }
+        }
+
+        function loadExampleCollection() {
+            // Load some fun example requests
+            const examples = [
+                {
+                    name: '🐕 Random Dog Picture',
+                    url: 'https://dog.ceo/api/breeds/image/random',
+                    method: 'GET'
+                },
+                {
+                    name: '😂 Random Joke',
+                    url: 'https://official-joke-api.appspot.com/random_joke',
+                    method: 'GET'
+                },
+                {
+                    name: '🐱 Cat Fact',
+                    url: 'https://catfact.ninja/fact',
+                    method: 'GET'
+                }
+            ];
+
+            const randomExample = examples[Math.floor(Math.random() * examples.length)];
+            
+            document.getElementById('urlInput').value = randomExample.url;
+            
+            // Update method
+            document.querySelectorAll('.method-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.method === randomExample.method) {
+                    btn.classList.add('active');
+                }
+            });
+            currentMethod = randomExample.method;
+            
+            addActivity(`📚 ${currentUser} loaded "${randomExample.name}" from the example collection!`);
+            
+            alert(`🎉 Loaded "${randomExample.name}"! Click "Launch Request!" to try it out!`);
+        }
+
+        // Fun easter eggs and interactions
+        document.addEventListener('keydown', function(e) {
+            // Konami code easter egg
+            if (e.ctrlKey && e.shiftKey && e.key === 'F') {
+                document.body.style.filter = 'hue-rotate(180deg)';
+                addActivity('🌈 Someone discovered the rainbow mode!');
+                setTimeout(() => {
+                    document.body.style.filter = '';
+                }, 3000);
+            }
+        });
+
+        // Auto-focus username input when page loads
+        setTimeout(() => {
+            document.getElementById('usernameInput').focus();
+        }, 1000);
+    </script>
+</body>
+</html>
