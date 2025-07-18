@@ -473,10 +473,17 @@
             
             <div class="form-group">
                 <label>🏷️ Your Name:</label>
-                <input type="text" class="form-control" id="usernameInput" 
-                       placeholder="Enter your name to join the fun!" 
-                       onchange="updateUsername()" 
-                       oninput="updateUsername()">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" class="form-control" id="usernameInput" 
+                           placeholder="Enter your name to join the fun!" 
+                           onchange="updateUsername()" 
+                           oninput="updateUsername()"
+                           style="flex: 1;">
+                    <button id="changeUserBtn" onclick="changeUser()" 
+                            style="display: none; background: #ff6b6b; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 12px;">
+                        🔄 Change
+                    </button>
+                </div>
             </div>
 
             <h3>🌟 Who's Online:</h3>
@@ -518,8 +525,49 @@
             connectToServer();
             setupEventListeners();
             updateConnectionStatus('connecting');
+            loadSavedUsername(); // Load saved username from localStorage
             updateUserRegistrationStatus(); // Initialize UI state
         });
+
+        function loadSavedUsername() {
+            // Try to load username from localStorage
+            const savedUsername = localStorage.getItem('apiPlaygroundUsername');
+            if (savedUsername && savedUsername.trim()) {
+                const usernameInput = document.getElementById('usernameInput');
+                usernameInput.value = savedUsername;
+                
+                // Set the user as registered
+                currentUser = savedUsername;
+                isUserRegistered = true;
+                
+                // Show welcome back message
+                setTimeout(() => {
+                    showUserFeedback(`👋 Welcome back, ${currentUser}!`);
+                }, 1000);
+                
+                // If connected, join the playground
+                if (isConnected) {
+                    sendMessage({
+                        type: 'join',
+                        username: currentUser
+                    });
+                }
+                
+                updateUserRegistrationStatus();
+            }
+        }
+
+        function saveUsername(username) {
+            // Save username to localStorage
+            if (username && username.trim()) {
+                localStorage.setItem('apiPlaygroundUsername', username.trim());
+            }
+        }
+
+        function clearSavedUsername() {
+            // Clear username from localStorage (for logout functionality)
+            localStorage.removeItem('apiPlaygroundUsername');
+        }
 
         function connectToServer() {
             try {
@@ -823,6 +871,7 @@
             if (!newUsername) {
                 // If empty, show not registered state
                 isUserRegistered = false;
+                clearSavedUsername(); // Remove from localStorage
                 updateUserRegistrationStatus();
                 return;
             }
@@ -831,6 +880,9 @@
                 const oldUsername = currentUser;
                 currentUser = newUsername;
                 isUserRegistered = true;
+                
+                // Save to localStorage
+                saveUsername(currentUser);
                 
                 // Show immediate feedback
                 showUserFeedback(`🎉 Welcome ${currentUser}! You're now part of the playground!`);
@@ -847,6 +899,27 @@
                 
                 updateUserRegistrationStatus();
             }
+        }
+
+        function changeUser() {
+            // Clear current user and allow changing
+            const usernameInput = document.getElementById('usernameInput');
+            usernameInput.value = '';
+            usernameInput.disabled = false;
+            usernameInput.focus();
+            
+            // Reset state
+            currentUser = null;
+            isUserRegistered = false;
+            clearSavedUsername();
+            
+            // Hide change button
+            document.getElementById('changeUserBtn').style.display = 'none';
+            
+            // Update UI
+            updateUserRegistrationStatus();
+            
+            showUserFeedback('👋 Enter a new name to join the playground!');
         }
 
         function updateOnlineUsers(users) {
@@ -885,12 +958,16 @@
             
             // Enable/disable send button based on registration
             const sendBtn = document.getElementById('sendBtn');
+            const changeUserBtn = document.getElementById('changeUserBtn');
+            
             if (isUserRegistered && currentUser) {
                 sendBtn.disabled = false;
                 sendBtn.style.opacity = '1';
+                changeUserBtn.style.display = 'inline-block'; // Show change button when registered
             } else {
                 sendBtn.disabled = true;
                 sendBtn.style.opacity = '0.6';
+                changeUserBtn.style.display = 'none'; // Hide change button when not registered
             }
         }
 
