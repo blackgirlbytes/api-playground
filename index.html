@@ -720,21 +720,7 @@
                 inset 0 -1px 0 rgba(0, 0, 0, 0.2);       /* Bottom depth edge */
         }
 
-        .collaboration-panel-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                #4ecdc4 0%, 
-                #44a08d 25%, 
-                #667eea 50%, 
-                #764ba2 75%, 
-                #f093fb 100%);
-            animation: shimmer 4s ease-in-out infinite;
-        }
+
 
         .collaboration-panel-content h2 {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
@@ -765,44 +751,87 @@
                 0px 0px 8px rgba(0, 0, 0, 0.4);
         }
 
-        /* Update playground equipment colors to use unified system */
+        /* WOODEN REQUEST PANEL - Matching Response Panel style EXACTLY */
         .slide-panel {
-            background: var(--gradient-slide);
-            border-radius: var(--radius-xl) var(--radius-xl) 120px 120px;
-            padding: 40px 32px 60px;
-            box-shadow: var(--shadow-slide-hover);
-            border: none;
             position: relative;
-            transform: perspective(1000px) rotateX(5deg);
+            padding: 40px 32px;
+            border: none;
+            outline: none;
+            /* Matte wood color base - EXACTLY matching response panel */
+            background: 
+                /* Subtle wood stain variations */
+                linear-gradient(45deg, 
+                    #6B4423 0%,   /* Darker, matte wood */
+                    #8B5A2B 20%,  /* Medium brown */
+                    #A0522D 40%,  /* Natural brown */
+                    #8B5A2B 60%,  /* Medium brown */
+                    #6B4423 80%,  /* Darker wood */
+                    #5D3A1A 100% /* Deep wood */
+                );
+            border-radius: 6px;
+            /* Matte wood board depth and shadows - EXACTLY matching response panel */
+            box-shadow: 
+                0 6px 12px rgba(107, 68, 35, 0.5),
+                0 3px 6px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0px rgba(160, 82, 45, 0.2),
+                inset 0 -1px 0px rgba(0, 0, 0, 0.4),
+                inset 1px 0 0px rgba(139, 90, 43, 0.3),
+                inset -1px 0 0px rgba(93, 58, 26, 0.5);
+            border: 2px solid #5D3A1A;
+            overflow: visible;
         }
 
+        /* STRONG REALISTIC wood grain texture - EXACTLY matching response panel */
         .slide-panel::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 20px;
-            background: linear-gradient(135deg, var(--swing-brown) 0%, var(--swing-brown-light) 100%);
-            border-radius: var(--radius-sm);
-            box-shadow: inset 0 2px 4px var(--shadow-medium);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                /* Primary wood grain lines - STRONG */
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    rgba(139, 69, 19, 0.4) 1px,
+                    transparent 2px,
+                    transparent 4px,
+                    rgba(101, 67, 33, 0.3) 5px,
+                    transparent 6px,
+                    transparent 10px
+                ),
+                /* Secondary grain pattern - STRONG */
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(160, 82, 45, 0.2) 1px,
+                    transparent 2px,
+                    transparent 15px
+                ),
+                /* Wood knots - realistic sizes and positions - STRONG */
+                radial-gradient(ellipse 20px 10px at 25% 30%, rgba(101, 67, 33, 0.7) 0%, rgba(139, 69, 19, 0.4) 40%, transparent 70%),
+                radial-gradient(ellipse 15px 8px at 75% 70%, rgba(93, 64, 55, 0.6) 0%, rgba(101, 67, 33, 0.3) 50%, transparent 80%),
+                radial-gradient(ellipse 12px 6px at 60% 15%, rgba(139, 69, 19, 0.5) 0%, rgba(160, 82, 45, 0.2) 60%, transparent 90%),
+                /* Wood surface imperfections - STRONG */
+                radial-gradient(circle 2px at 15% 60%, rgba(0, 0, 0, 0.1) 0%, transparent 100%),
+                radial-gradient(circle 1px at 85% 40%, rgba(0, 0, 0, 0.08) 0%, transparent 100%),
+                radial-gradient(circle 1px at 40% 80%, rgba(0, 0, 0, 0.06) 0%, transparent 100%),
+                /* Subtle wood fiber texture - STRONG */
+                repeating-linear-gradient(
+                    2deg,
+                    transparent 0px,
+                    rgba(222, 184, 135, 0.1) 1px,
+                    transparent 2px,
+                    transparent 8px
+                );
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 1; /* Full strength wooden texture */
+            z-index: -1; /* Move behind all content */
         }
 
-        .slide-panel .form-group::after {
-            content: '';
-            position: absolute;
-            left: -20px;
-            right: -20px;
-            bottom: -14px;
-            height: 8px;
-            background: linear-gradient(90deg, 
-                var(--swing-brown) 0%, 
-                var(--swing-brown-light) 50%, 
-                var(--swing-brown) 100%);
-            border-radius: var(--radius-xs);
-            box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.3);
-        }
+
 
         .slide-panel:hover {
             transform: perspective(1000px) rotateX(8deg) translateY(-5px);
@@ -1049,25 +1078,7 @@
             margin-bottom: 28px;
         }
 
-        /* Slide surface texture */
-        .slide-panel::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                repeating-linear-gradient(
-                    45deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(255,255,255,0.1) 2px,
-                    rgba(255,255,255,0.1) 4px
-                );
-            pointer-events: none;
-            border-radius: inherit;
-        }
+        /* Remove slide surface texture - using wooden texture instead */
 
         /* Whoosh animation */
         @keyframes whoosh {
@@ -1261,6 +1272,7 @@
             align-items: center;
             gap: 12px;
             line-height: 1.2;
+            border-bottom: none;
         }
 
         /* Enhanced visibility for sandbox panel heading */
@@ -1271,6 +1283,243 @@
                 1px 1px 2px rgba(0, 0, 0, 0.6),
                 0px 0px 8px rgba(0, 0, 0, 0.4);
             font-weight: 800;
+        }
+
+        /* Enhanced visibility for slide panel heading - matching wooden theme */
+        .slide-panel h2 {
+            color: #F4E4C1 !important; /* Light cream color for better visibility */
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                1px 1px 2px rgba(0, 0, 0, 0.6),
+                0px 0px 8px rgba(0, 0, 0, 0.4) !important;
+            font-weight: 800 !important;
+            position: relative;
+            z-index: 2; /* Ensure it appears above wood texture */
+            text-align: center !important; /* Center the heading within the panel */
+        }
+
+        /* Enhanced visibility for slide panel labels - EXACTLY matching sandbox panel */
+        .slide-panel .form-group label {
+            color: #F4E4C1 !important; /* Light cream color for better visibility - EXACTLY matching sandbox */
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                1px 1px 2px rgba(0, 0, 0, 0.6),
+                0px 0px 8px rgba(0, 0, 0, 0.4) !important;
+            font-weight: 700 !important;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Enhanced visibility for slide panel form controls - KEEP BACKGROUNDS */
+        .slide-panel .form-control {
+            background: rgba(255, 255, 255, 0.95) !important; /* White background for visibility */
+            border: 2px solid rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+            position: relative;
+            z-index: 2;
+            color: #1a202c !important; /* Dark text for contrast on white background */
+            font-weight: 600 !important;
+        }
+
+        .slide-panel .form-control:focus {
+            background: rgba(255, 255, 255, 1) !important;
+            border-color: #667eea !important;
+            box-shadow: 
+                0 0 0 4px rgba(102, 126, 234, 0.15),
+                0 8px 24px rgba(102, 126, 234, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+            color: #1a202c !important;
+        }
+
+        .slide-panel .form-control::placeholder {
+            color: #94a3b8 !important;
+            font-weight: 400 !important;
+        }
+
+        /* Enhanced visibility for slide panel method buttons - REMOVE BACKGROUNDS */
+        .slide-panel .method-btn {
+            background: transparent !important; /* Remove background */
+            border: 2px solid rgba(244, 228, 193, 0.8) !important; /* Keep border */
+            color: #F4E4C1 !important; /* Light cream text for visibility */
+            font-weight: 700 !important;
+            box-shadow: none !important; /* Remove shadow */
+            position: relative;
+            z-index: 2;
+            /* Enhanced text shadow for better readability on wooden background */
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                1px 1px 2px rgba(0, 0, 0, 0.6),
+                0px 0px 8px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .slide-panel .method-btn:hover:not(.active) {
+            background: rgba(244, 228, 193, 0.1) !important; /* Very subtle background on hover */
+            border-color: #F4E4C1 !important;
+            box-shadow: none !important;
+        }
+
+        .slide-panel .method-btn.active {
+            background: rgba(244, 228, 193, 0.2) !important; /* Subtle background for active state */
+            color: #F4E4C1 !important;
+            border-color: #F4E4C1 !important;
+            /* Enhanced text shadow for active state */
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.9),
+                1px 1px 2px rgba(0, 0, 0, 0.7),
+                0px 0px 10px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        /* Enhanced visibility for slide panel headers section - KEEP BACKGROUND */
+        .slide-panel .headers-section {
+            background: rgba(255, 255, 255, 0.9) !important;
+            border: 2px dashed rgba(244, 228, 193, 0.8) !important;
+            position: relative;
+            z-index: 2;
+        }
+
+        .slide-panel .headers-section:hover {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-color: rgba(244, 228, 193, 1) !important;
+        }
+
+        /* Enhanced visibility for slide panel header inputs - KEEP BACKGROUNDS */
+        .slide-panel .header-input {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border: 2px solid rgba(255, 255, 255, 0.8) !important;
+            color: #1a202c !important;
+            font-weight: 600 !important;
+            position: relative;
+            z-index: 2;
+        }
+
+        .slide-panel .header-input:focus {
+            background: rgba(255, 255, 255, 1) !important;
+            border-color: #667eea !important;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.08) !important;
+            color: #1a202c !important;
+        }
+
+        .slide-panel .header-input::placeholder {
+            color: #94a3b8 !important;
+            font-weight: 400 !important;
+        }
+
+        /* Enhanced visibility for slide panel buttons */
+        .slide-panel .add-header-btn,
+        .slide-panel .remove-btn {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* WOODEN SEND BUTTON - matching the wooden theme */
+        .slide-panel .send-btn {
+            position: relative;
+            padding: 20px 32px;
+            border: none;
+            outline: none;
+            /* Matte wood color base - matching other wooden elements */
+            background: 
+                linear-gradient(135deg, 
+                    #6B4423 0%,   /* Darker, matte wood */
+                    #8B5A2B 25%,  /* Medium brown */
+                    #A0522D 50%,  /* Natural brown */
+                    #8B5A2B 75%,  /* Medium brown */
+                    #6B4423 100%  /* Darker wood */
+                ) !important;
+            color: #F4E4C1 !important; /* Light cream text */
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+            font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+            font-weight: 700 !important;
+            letter-spacing: 0.3px;
+            border-radius: 6px;
+            /* Enhanced text shadow for better readability */
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                1px 1px 2px rgba(0, 0, 0, 0.6),
+                0px 0px 8px rgba(0, 0, 0, 0.4) !important;
+            /* Matte wood board depth and shadows */
+            box-shadow: 
+                0 6px 12px rgba(107, 68, 35, 0.5),
+                0 3px 6px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0px rgba(160, 82, 45, 0.2),
+                inset 0 -1px 0px rgba(0, 0, 0, 0.4),
+                inset 1px 0 0px rgba(139, 90, 43, 0.3),
+                inset -1px 0 0px rgba(93, 58, 26, 0.5) !important;
+            border: 2px solid #5D3A1A !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        /* Wood grain texture for send button */
+        .slide-panel .send-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                /* Primary wood grain lines */
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    rgba(139, 69, 19, 0.4) 1px,
+                    transparent 2px,
+                    transparent 4px,
+                    rgba(101, 67, 33, 0.3) 5px,
+                    transparent 6px,
+                    transparent 10px
+                ),
+                /* Secondary grain pattern */
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(160, 82, 45, 0.2) 1px,
+                    transparent 2px,
+                    transparent 15px
+                ),
+                /* Wood knots */
+                radial-gradient(ellipse 20px 10px at 25% 30%, rgba(101, 67, 33, 0.7) 0%, rgba(139, 69, 19, 0.4) 40%, transparent 70%),
+                radial-gradient(ellipse 15px 8px at 75% 70%, rgba(93, 64, 55, 0.6) 0%, rgba(101, 67, 33, 0.3) 50%, transparent 80%);
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 1;
+            z-index: -1;
+        }
+
+        .slide-panel .send-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 12px 24px rgba(107, 68, 35, 0.6),
+                0 6px 12px rgba(0, 0, 0, 0.5),
+                inset 0 2px 0px rgba(160, 82, 45, 0.3),
+                inset 0 -2px 0px rgba(0, 0, 0, 0.5),
+                inset 2px 0 0px rgba(139, 90, 43, 0.4),
+                inset -2px 0 0px rgba(93, 58, 26, 0.6) !important;
+            /* Slightly lighter wood on hover */
+            background: 
+                linear-gradient(135deg, 
+                    #8B5A2B 0%,   /* Medium brown */
+                    #A0522D 25%,  /* Lighter brown */
+                    #CD853F 50%,  /* Even lighter brown */
+                    #A0522D 75%,  /* Lighter brown */
+                    #8B5A2B 100%  /* Medium brown */
+                ) !important;
+        }
+
+        .slide-panel .send-btn:disabled {
+            opacity: 0.7 !important;
+            cursor: not-allowed !important;
+            transform: none !important;
+            background: 
+                linear-gradient(135deg, 
+                    #5D3A1A 0%,   /* Darker wood - disabled state */
+                    #6B4423 50%,  /* Medium dark brown */
+                    #5D3A1A 100%  /* Darker wood */
+                ) !important;
         }
 
         .form-group {
@@ -1599,21 +1848,7 @@
                 0 8px 24px rgba(0, 0, 0, 0.04);
         }
 
-        .response-area::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(102, 126, 234, 0.3) 25%,
-                rgba(118, 75, 162, 0.3) 50%,
-                rgba(240, 147, 251, 0.3) 75%,
-                transparent 100%);
-            animation: shimmer 3s ease-in-out infinite;
-        }
+
 
         .response-header {
             padding: 24px 28px 0 28px;
@@ -1765,6 +2000,12 @@
             padding: 40px 20px;
             color: #64748b;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            min-height: 300px;
         }
 
         .welcome-message h3 {
@@ -2034,21 +2275,7 @@
             margin-top: 24px;
         }
 
-        .collaboration-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                #4ecdc4 0%, 
-                #44a08d 25%, 
-                #667eea 50%, 
-                #764ba2 75%, 
-                #f093fb 100%);
-            animation: shimmer 4s ease-in-out infinite;
-        }
+
 
         .collaboration-panel h2 {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
@@ -2540,19 +2767,23 @@
         <div class="main-content">
             <!-- Tab Navigation -->
             <div class="tab-navigation">
-                <button class="tab-btn active" data-tab="api-tab" onclick="switchTab('api-tab')">
+                <button class="tab-btn" data-tab="api-tab" onclick="switchTab('api-tab')">
                     API Testing
                 </button>
-                <button class="tab-btn" data-tab="collaboration-tab" onclick="switchTab('collaboration-tab')">
+                <button class="tab-btn active" data-tab="collaboration-tab" onclick="switchTab('collaboration-tab')">
                     Collaboration
                 </button>
             </div>
 
             <!-- API Tab Content -->
-            <div id="api-tab" class="tab-content active">
+            <div id="api-tab" class="tab-content">
                 <div class="tab-grid">
                     <div class="panel slide-panel" id="slidePanel">
-                        <h2 class="equipment-heading">Request</h2>
+                        <div class="push-pin" style="position: absolute; top: 15px; left: 15px; width: 12px; height: 12px; background: #FF6B6B; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>
+                        <div class="push-pin" style="position: absolute; top: 15px; right: 15px; width: 12px; height: 12px; background: #4ECDC4; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>
+                        <div class="push-pin" style="position: absolute; bottom: 15px; left: 15px; width: 12px; height: 12px; background: #FFE66D; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>
+                        <div class="push-pin" style="position: absolute; bottom: 15px; right: 15px; width: 12px; height: 12px; background: #A8E6CF; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>
+                        <h2>Request</h2>
                         
                         <div class="form-group">
                             <label class="tooltip instruction-text" data-tooltip="Choose how you want to talk to the API!">
@@ -2560,19 +2791,19 @@
                             </label>
                             <div class="method-selector">
                                 <button class="method-btn method-get playground-button bouncy-ball-btn active" data-method="GET">
-                                    🧗‍♀️ GET
+                                    GET
                                     <div class="sound-indicator"></div>
                                 </button>
                                 <button class="method-btn method-post playground-button toy-block-btn" data-method="POST">
-                                    🛝 POST
+                                    POST
                                     <div class="sound-indicator"></div>
                                 </button>
                                 <button class="method-btn method-put playground-button bouncy-ball-btn" data-method="PUT">
-                                    🔧 PUT
+                                    PUT
                                     <div class="sound-indicator"></div>
                                 </button>
                                 <button class="method-btn method-delete playground-button toy-block-btn" data-method="DELETE">
-                                    🗑️ DELETE
+                                    DELETE
                                     <div class="sound-indicator"></div>
                                 </button>
                             </div>
@@ -2668,7 +2899,7 @@
             </div>
 
             <!-- Collaboration Tab Content -->
-            <div id="collaboration-tab" class="tab-content">
+            <div id="collaboration-tab" class="tab-content active">
                 <div class="collaboration-panel-content sandbox-panel">
                     <h2>Clubhouse</h2>
                     
