@@ -3014,7 +3014,13 @@
 
         function connectToServer() {
             try {
-                ws = new WebSocket('ws://localhost:3001');
+                // Dynamic WebSocket URL for both development and production
+                const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+                const wsHost = window.location.host || 'localhost:3001';
+                const wsUrl = `${wsProtocol}//${wsHost}`;
+                
+                console.log('Connecting to WebSocket:', wsUrl);
+                ws = new WebSocket(wsUrl);
                 
                 ws.onopen = function() {
                     console.log('🎉 Connected to API Adventure Playground!');

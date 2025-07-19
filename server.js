@@ -3,9 +3,50 @@ const http = require('http');
 const https = require('https');
 const url = require('url');
 const crypto = require('crypto');
+const path = require('path');
+const fs = require('fs');
 
-// Create HTTP server for WebSocket
-const server = http.createServer();
+// Create HTTP server for WebSocket and static files
+const server = http.createServer((req, res) => {
+    // Serve static files
+    if (req.url === '/' || req.url === '/index.html') {
+        fs.readFile(path.join(__dirname, 'index.html'), (err, data) => {
+            if (err) {
+                res.writeHead(404);
+                res.end('Not found');
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(data);
+        });
+    } else if (req.url.endsWith('.css')) {
+        const cssFile = path.join(__dirname, req.url.substring(1));
+        fs.readFile(cssFile, (err, data) => {
+            if (err) {
+                res.writeHead(404);
+                res.end('Not found');
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.end(data);
+        });
+    } else if (req.url.endsWith('.js')) {
+        const jsFile = path.join(__dirname, req.url.substring(1));
+        fs.readFile(jsFile, (err, data) => {
+            if (err) {
+                res.writeHead(404);
+                res.end('Not found');
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'application/javascript' });
+            res.end(data);
+        });
+    } else {
+        res.writeHead(404);
+        res.end('Not found');
+    }
+});
+
 const wss = new WebSocket.Server({ server });
 
 // In-memory storage (in production, use a proper database)
