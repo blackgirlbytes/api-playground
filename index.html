@@ -664,6 +664,62 @@
             overflow: hidden;
         }
 
+        /* Log Out Button - Top Right Corner */
+        .log-out-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+            border: none;
+            padding: 16px 28px;
+            border-radius: 18px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+            letter-spacing: 0.02em;
+            /* Enhanced text depth - layered shadows for dimensional text */
+            text-shadow: 
+                0 1px 2px rgba(0, 0, 0, 0.4),           /* Close text shadow */
+                0 2px 4px rgba(0, 0, 0, 0.25),          /* Mid-range text shadow */
+                0 4px 8px rgba(0, 0, 0, 0.15);          /* Distant text shadow */
+            /* Layered depth shadows - no glow, just physical depth */
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.15),           /* Close contact shadow */
+                0 4px 8px rgba(0, 0, 0, 0.1),            /* Mid-range shadow */
+                0 8px 16px rgba(0, 0, 0, 0.08),          /* Distant shadow */
+                inset 0 1px 0 rgba(255, 255, 255, 0.2), /* Top highlight edge */
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);       /* Bottom depth edge */
+            z-index: 10;
+            /* Subtle 3D transform for depth */
+            transform: perspective(200px) rotateX(2deg);
+        }
+
+        .log-out-btn:hover {
+            transform: perspective(200px) rotateX(2deg) translateY(-3px);
+            /* Enhanced layered shadows on hover */
+            box-shadow: 
+                0 4px 8px rgba(0, 0, 0, 0.18),           /* Close contact shadow */
+                0 8px 16px rgba(0, 0, 0, 0.12),          /* Mid-range shadow */
+                0 16px 32px rgba(0, 0, 0, 0.1),          /* Distant shadow */
+                inset 0 1px 0 rgba(255, 255, 255, 0.25), /* Top highlight edge */
+                inset 0 -1px 0 rgba(0, 0, 0, 0.15);      /* Bottom depth edge */
+            background: linear-gradient(135deg, #44a08d 0%, #3d8b7a 100%);
+        }
+
+        .log-out-btn:active {
+            transform: perspective(200px) rotateX(1deg) translateY(-1px);
+            /* Pressed state - closer to surface */
+            box-shadow: 
+                0 1px 2px rgba(0, 0, 0, 0.2),            /* Close contact shadow */
+                0 2px 4px rgba(0, 0, 0, 0.15),           /* Mid-range shadow */
+                0 4px 8px rgba(0, 0, 0, 0.1),            /* Distant shadow */
+                inset 0 1px 0 rgba(255, 255, 255, 0.15), /* Top highlight edge */
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);       /* Bottom depth edge */
+        }
+
         .collaboration-panel-content::before {
             content: '';
             position: absolute;
@@ -1848,48 +1904,43 @@
             border: 1px solid rgba(226, 232, 240, 0.4);
         }
 
-        /* RUSTIC CLUB BADGES - Camp/Scout style */
+        /* WOODEN NAME TAGS - Simple matte wooden rectangles */
         .user-badge {
             position: relative;
-            padding: 14px 22px;
+            padding: 12px 18px;
             border: none;
             outline: none;
-            /* Rustic leather-like base with camp colors */
+            /* Matte wood - no shine, matching tab buttons */
             background: 
-                /* Leather texture gradient */
                 linear-gradient(135deg, 
-                    #8B4513 0%,     /* Saddle brown */
-                    #A0522D 25%,    /* Sienna */
-                    #CD853F 50%,    /* Peru */
-                    #D2B48C 75%,    /* Tan */
-                    #DEB887 100%    /* Burlywood */
+                    #6B4423 0%,   /* Darker, matte wood */
+                    #8B5A2B 50%,  /* Medium brown */
+                    #6B4423 100%  /* Darker wood */
                 );
-            color: #2F1B14; /* Dark brown text for contrast */
+            color: #F4E4C1; /* Light cream text - same as tab buttons */
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
             font-size: 14px;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             display: flex;
             align-items: center;
             gap: 10px;
-            border-radius: 20px;
-            /* Rustic badge depth and shadows */
+            border-radius: 8px; /* More rectangular, less round */
+            /* Simple matte wood shadows - no shine */
             box-shadow: 
-                0 4px 8px rgba(139, 69, 19, 0.4),
-                0 2px 4px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0px rgba(222, 184, 135, 0.6),
-                inset 0 -1px 0px rgba(139, 69, 19, 0.8),
-                inset 1px 0 0px rgba(210, 180, 140, 0.4),
-                inset -1px 0 0px rgba(160, 82, 45, 0.6);
+                0 3px 6px rgba(107, 68, 35, 0.4),
+                0 1px 3px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0px rgba(139, 90, 43, 0.2),
+                inset 0 -1px 0px rgba(93, 58, 26, 0.5);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid #8B4513;
-            /* Strong readable text shadow */
+            border: 1px solid #5D3A1A;
+            /* Strong text shadow for readability */
             text-shadow: 
-                1px 1px 2px rgba(255, 255, 255, 0.3),
-                0px 1px 3px rgba(0, 0, 0, 0.2);
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                1px 1px 2px rgba(0, 0, 0, 0.6);
         }
 
-        /* Leather texture overlay for badges */
+        /* Simple wood grain - no leather texture */
         .user-badge::after {
             content: '';
             position: absolute;
@@ -1898,84 +1949,60 @@
             right: 0;
             bottom: 0;
             background-image: 
-                /* Leather grain pattern */
+                /* Simple wood grain lines */
                 repeating-linear-gradient(
-                    45deg,
+                    0deg,
                     transparent 0px,
-                    rgba(139, 69, 19, 0.1) 1px,
+                    rgba(139, 69, 19, 0.2) 1px,
                     transparent 2px,
                     transparent 6px
-                ),
-                /* Leather pores */
-                radial-gradient(circle 1px at 20% 30%, rgba(101, 67, 33, 0.3) 0%, transparent 100%),
-                radial-gradient(circle 1px at 80% 70%, rgba(160, 82, 45, 0.2) 0%, transparent 100%),
-                radial-gradient(circle 1px at 40% 80%, rgba(139, 69, 19, 0.3) 0%, transparent 100%);
+                );
             border-radius: inherit;
             pointer-events: none;
-            opacity: 0.6;
+            opacity: 0.4; /* Subtle texture */
         }
 
-        /* Rustic hover effect for badges */
+        /* Simple hover effect - no shine */
         .user-badge:hover {
-            transform: translateY(-2px) scale(1.02);
+            transform: translateY(-2px);
             box-shadow: 
-                0 6px 12px rgba(139, 69, 19, 0.5),
-                0 3px 6px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0px rgba(222, 184, 135, 0.8),
-                inset 0 -1px 0px rgba(139, 69, 19, 1),
-                inset 1px 0 0px rgba(210, 180, 140, 0.6),
-                inset -1px 0 0px rgba(160, 82, 45, 0.8);
-            /* Slightly lighter on hover */
+                0 4px 8px rgba(107, 68, 35, 0.5),
+                0 2px 4px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0px rgba(139, 90, 43, 0.3),
+                inset 0 -1px 0px rgba(93, 58, 26, 0.6);
+            /* Slightly lighter wood on hover */
             background: 
                 linear-gradient(135deg, 
-                    #A0522D 0%,     /* Lighter sienna */
-                    #CD853F 25%,    /* Peru */
-                    #D2B48C 50%,    /* Tan */
-                    #DEB887 75%,    /* Burlywood */
-                    #F5DEB3 100%    /* Wheat */
+                    #8B5A2B 0%,   /* Medium brown */
+                    #A0522D 50%,  /* Lighter brown */
+                    #8B5A2B 100%  /* Medium brown */
                 );
         }
 
-        /* RUSTIC CHANGE BUTTON - Small wooden arrow sign */
-        .rustic-change-btn {
+        /* Special wooden prompt badge for "Enter your name above to join!" */
+        .wooden-prompt-badge {
             position: relative;
-            padding: 8px 16px;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            /* Rustic wood base - darker for contrast */
+            /* Use the same wooden background as the main panel */
             background: 
-                linear-gradient(135deg, 
-                    #654321 0%,     /* Dark brown */
-                    #8B4513 25%,    /* Saddle brown */
-                    #A0522D 50%,    /* Sienna */
-                    #8B4513 75%,    /* Saddle brown */
-                    #654321 100%    /* Dark brown */
-                );
-            color: #F4E4C1; /* Light cream text */
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-            border-radius: 8px;
-            /* Rustic button depth */
-            box-shadow: 
-                0 3px 6px rgba(101, 67, 33, 0.4),
-                0 1px 3px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0px rgba(160, 82, 45, 0.4),
-                inset 0 -1px 0px rgba(101, 67, 33, 0.8),
-                inset 1px 0 0px rgba(139, 69, 19, 0.3),
-                inset -1px 0 0px rgba(101, 67, 33, 0.6);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid #654321;
-            /* Strong text shadow for readability */
+                linear-gradient(45deg, 
+                    #6B4423 0%,   /* Darker, matte wood */
+                    #8B5A2B 20%,  /* Medium brown */
+                    #A0522D 40%,  /* Natural brown */
+                    #8B5A2B 60%,  /* Medium brown */
+                    #6B4423 80%,  /* Darker wood */
+                    #5D3A1A 100% /* Deep wood */
+                ) !important;
+            color: #F4E4C1 !important; /* Light cream text */
+            /* Enhanced text shadow for better readability */
             text-shadow: 
-                1px 1px 2px rgba(0, 0, 0, 0.8),
-                0px 1px 3px rgba(0, 0, 0, 0.6);
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                1px 1px 2px rgba(0, 0, 0, 0.6),
+                0px 0px 8px rgba(0, 0, 0, 0.4) !important;
+            z-index: 2; /* Ensure it appears above wood texture */
         }
 
-        /* Wood grain texture for change button */
-        .rustic-change-btn::before {
+        /* Apply the same wood grain texture to the prompt badge */
+        .wooden-prompt-badge::after {
             content: '';
             position: absolute;
             top: 0;
@@ -1983,75 +2010,32 @@
             right: 0;
             bottom: 0;
             background-image: 
-                /* Wood grain lines */
+                /* Primary wood grain lines */
                 repeating-linear-gradient(
                     0deg,
                     transparent 0px,
-                    rgba(139, 69, 19, 0.3) 1px,
+                    rgba(139, 69, 19, 0.4) 1px,
                     transparent 2px,
-                    transparent 4px
+                    transparent 4px,
+                    rgba(101, 67, 33, 0.3) 5px,
+                    transparent 6px,
+                    transparent 10px
+                ),
+                /* Secondary grain pattern */
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(160, 82, 45, 0.2) 1px,
+                    transparent 2px,
+                    transparent 15px
                 ),
                 /* Wood knots */
-                radial-gradient(ellipse 8px 4px at 70% 30%, rgba(101, 67, 33, 0.5) 0%, transparent 70%);
+                radial-gradient(ellipse 15px 8px at 75% 70%, rgba(93, 64, 55, 0.6) 0%, rgba(101, 67, 33, 0.3) 50%, transparent 80%),
+                radial-gradient(ellipse 12px 6px at 25% 30%, rgba(139, 69, 19, 0.5) 0%, rgba(160, 82, 45, 0.2) 60%, transparent 90%);
             border-radius: inherit;
             pointer-events: none;
-            opacity: 0.8;
-        }
-
-        /* Rustic hover effect for change button */
-        .rustic-change-btn:hover {
-            transform: translateY(-1px) scale(1.05);
-            box-shadow: 
-                0 4px 8px rgba(101, 67, 33, 0.5),
-                0 2px 4px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0px rgba(160, 82, 45, 0.6),
-                inset 0 -1px 0px rgba(101, 67, 33, 1),
-                inset 1px 0 0px rgba(139, 69, 19, 0.5),
-                inset -1px 0 0px rgba(101, 67, 33, 0.8);
-            /* Slightly lighter wood on hover */
-            background: 
-                linear-gradient(135deg, 
-                    #8B4513 0%,     /* Saddle brown */
-                    #A0522D 25%,    /* Sienna */
-                    #CD853F 50%,    /* Peru */
-                    #A0522D 75%,    /* Sienna */
-                    #8B4513 100%    /* Saddle brown */
-                );
-            color: #FFFFFF; /* White text on hover */
-        }
-
-        /* Active/pressed state for change button */
-        .rustic-change-btn:active {
-            transform: translateY(0px) scale(1.02);
-            box-shadow: 
-                0 2px 4px rgba(101, 67, 33, 0.6),
-                0 1px 2px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0px rgba(139, 69, 19, 0.3),
-                inset 0 -1px 0px rgba(0, 0, 0, 0.4),
-                inset 1px 0 0px rgba(101, 67, 33, 0.4),
-                inset -1px 0 0px rgba(101, 67, 33, 0.6);
-        }
-
-        .user-badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s;
-        }
-
-        .user-badge:hover::before {
-            left: 100%;
-        }
-
-        .user-badge:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 
-                0 12px 32px rgba(78, 205, 196, 0.35),
-                0 6px 16px rgba(68, 160, 141, 0.25);
+            opacity: 0.6; /* Subtle texture */
+            z-index: -1; /* Behind the text */
         }
 
         .activity-feed {
@@ -2101,22 +2085,23 @@
         }
 
         .activity-item {
-            padding: 12px 0;
+            padding: 16px 0;
             border-bottom: 1px solid rgba(226, 232, 240, 0.6);
-            font-size: 14px;
-            font-weight: 500;
-            color: #4a5568;
+            font-size: 16px; /* Increased from 14px */
+            font-weight: 600; /* Increased from 500 */
+            color: #1a202c; /* Changed from #4a5568 to much darker */
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
-            line-height: 1.5;
+            line-height: 1.6;
             transition: all 0.2s ease;
         }
 
         .activity-item:hover {
-            color: #2d3748;
-            background: rgba(255, 255, 255, 0.5);
+            color: #000000; /* Pure black on hover */
+            background: rgba(255, 255, 255, 0.8);
             margin: 0 -12px;
-            padding: 12px;
+            padding: 16px 12px;
             border-radius: 8px;
+            font-weight: 700; /* Even bolder on hover */
         }
 
         .activity-item:last-child {
@@ -2480,25 +2465,24 @@
                 <div class="collaboration-panel-content sandbox-panel">
                     <h2>Clubhouse</h2>
                     
+                    <!-- Log Out Button - Top Right Corner -->
+                    <button id="changeUserBtn" onclick="changeUser()" class="log-out-btn"
+                            style="display: none;">
+                        Log Out
+                    </button>
+
                     <div class="form-group">
                         <label>🏷️ Your Name:</label>
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                            <input type="text" class="form-control" id="usernameInput" 
-                                   placeholder="Enter your name to join the fun!" 
-                                   onchange="updateUsername()" 
-                                   oninput="updateUsername()"
-                                   style="flex: 1;">
-                            <button id="changeUserBtn" onclick="changeUser()" class="rustic-change-btn"
-                                    style="display: none;">
-                                🔄 Change
-                            </button>
-                        </div>
+                        <input type="text" class="form-control" id="usernameInput" 
+                               placeholder="Enter your name to join the fun!" 
+                               onchange="updateUsername()" 
+                               oninput="updateUsername()">
                     </div>
 
                     <h3>🌟 Who's Online:</h3>
                     <div class="users-online" id="usersOnline">
                         <div class="user-badge">
-                            👤 You (not connected yet)
+                            You (not connected yet)
                         </div>
                     </div>
 
@@ -3079,12 +3063,10 @@
             usersOnline.innerHTML = '';
             
             if (!isUserRegistered || !currentUser) {
-                // Show not registered state
+                // Show not registered state with wooden background
                 const notRegisteredBadge = document.createElement('div');
-                notRegisteredBadge.className = 'user-badge';
-                notRegisteredBadge.style.background = '#ffd93d';
-                notRegisteredBadge.style.color = '#333';
-                notRegisteredBadge.innerHTML = '👤 Enter your name above to join!';
+                notRegisteredBadge.className = 'user-badge wooden-prompt-badge';
+                notRegisteredBadge.innerHTML = 'Enter your name above to join!';
                 usersOnline.appendChild(notRegisteredBadge);
                 return;
             }
@@ -3093,14 +3075,14 @@
                 users.forEach(user => {
                     const userBadge = document.createElement('div');
                     userBadge.className = 'user-badge';
-                    userBadge.innerHTML = `👤 ${user}`;
+                    userBadge.innerHTML = `${user}`;
                     usersOnline.appendChild(userBadge);
                 });
             } else {
                 // Show current user at least
                 const userBadge = document.createElement('div');
                 userBadge.className = 'user-badge';
-                userBadge.innerHTML = `👤 ${currentUser} (you)`;
+                userBadge.innerHTML = `${currentUser} (you)`;
                 usersOnline.appendChild(userBadge);
             }
         }
