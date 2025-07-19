@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🚀 API Adventure Playground - Test APIs Together!</title>
+    <link rel="stylesheet" href="layout-system.css">
+    <link rel="stylesheet" href="color-system.css">
+    <link rel="stylesheet" href="interactive-animations.css">
+    <link rel="stylesheet" href="typography-content-styling.css">
     <style>
         * {
             margin: 0;
@@ -11,37 +15,359 @@
             box-sizing: border-box;
         }
 
+        /* Legacy environment variables - now using unified color system */
+        :root {
+            /* Sky Colors - mapped to unified system */
+            --sky-light: var(--sky-blue);
+            --sky-deep: var(--sky-blue-dark);
+            --cloud-color: var(--cloud-white-soft);
+            --sun-color: var(--sandbox-yellow);
+            --sun-rays: var(--safety-orange);
+            
+            /* Ground Colors - mapped to unified system */
+            --grass-light: var(--grass-green-light);
+            --grass-dark: var(--grass-green-dark);
+            --dirt-path: var(--dirt-brown);
+            
+            /* Tree Colors - mapped to unified system */
+            --tree-trunk: var(--swing-brown-dark);
+            --tree-leaves: var(--grass-green);
+            --tree-shadow: var(--shadow-medium);
+            
+            /* Environmental - mapped to unified system */
+            --particle-color: var(--particle-light);
+            --ambient-glow: var(--ambient-glow);
+        }
+
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
-            /* Modern 2025 Background Options - Choose one: */
-            
-            /* Option 1: Subtle Mesh Gradient (Recommended) */
+            /* Playground Sky Background with animated gradient */
             background: 
-                radial-gradient(at 40% 20%, hsla(228,100%,74%,0.1) 0px, transparent 50%),
-                radial-gradient(at 80% 0%, hsla(189,100%,56%,0.1) 0px, transparent 50%),
-                radial-gradient(at 0% 50%, hsla(355,100%,93%,0.1) 0px, transparent 50%),
-                radial-gradient(at 80% 50%, hsla(340,100%,76%,0.1) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, hsla(22,100%,77%,0.1) 0px, transparent 50%),
-                radial-gradient(at 80% 100%, hsla(242,100%,70%,0.1) 0px, transparent 50%),
-                radial-gradient(at 0% 0%, hsla(343,100%,76%,0.1) 0px, transparent 50%),
-                linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+                /* Animated sun rays */
+                radial-gradient(circle at 15% 5%, var(--sun-rays) 0%, transparent 15%),
+                /* Sun */
+                radial-gradient(circle at 15% 5%, var(--sun-color) 0%, transparent 8%),
+                /* Drifting clouds */
+                radial-gradient(ellipse 200px 60px at var(--cloud-x, 20%) var(--cloud-y, 25%), var(--cloud-color) 40%, transparent 70%),
+                radial-gradient(ellipse 150px 40px at var(--cloud-x2, 60%) var(--cloud-y2, 35%), var(--cloud-color) 40%, transparent 70%),
+                radial-gradient(ellipse 180px 50px at var(--cloud-x3, 80%) var(--cloud-y3, 20%), var(--cloud-color) 40%, transparent 70%),
+                /* Sky gradient */
+                linear-gradient(180deg, var(--sky-light) 0%, var(--sky-deep) 100%);
             
-            /* Option 2: Warm Neutral (Uncomment to use)
-            background: linear-gradient(135deg, #fef7f0 0%, #fdf4ff 50%, #f0f9ff 100%);
-            */
+            /* Animated cloud positions */
+            --cloud-x: 20%;
+            --cloud-y: 25%;
+            --cloud-x2: 60%;
+            --cloud-y2: 35%;
+            --cloud-x3: 80%;
+            --cloud-y3: 20%;
             
-            /* Option 3: Cool Minimal (Uncomment to use)
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
-            */
-            
-            /* Option 4: Dynamic Gradient (Uncomment to use)
-            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 25%, #8b5cf6 50%, #ec4899 75%, #f97316 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            */
+            animation: 
+                skyAnimation 20s ease-in-out infinite,
+                cloudDrift 30s linear infinite;
             
             min-height: 100vh;
             color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Ground layer with grass texture */
+        body::before {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: 
+                /* Grass blades pattern */
+                repeating-linear-gradient(
+                    90deg,
+                    var(--grass-light) 0px,
+                    var(--grass-dark) 2px,
+                    var(--grass-light) 4px
+                ),
+                /* Base grass color */
+                linear-gradient(0deg, var(--grass-dark) 0%, var(--grass-light) 100%);
+            z-index: -2;
+            animation: grassSway 3s ease-in-out infinite alternate;
+        }
+
+        /* Dirt path elements */
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            left: 20%;
+            right: 20%;
+            height: 40px;
+            background: 
+                radial-gradient(ellipse at center, var(--dirt-path) 60%, transparent 80%),
+                repeating-linear-gradient(
+                    45deg,
+                    var(--dirt-path) 0px,
+                    #C19A6B 1px,
+                    var(--dirt-path) 3px
+                );
+            border-radius: 20px 20px 0 0;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        /* Tree elements */
+        .tree {
+            position: fixed;
+            bottom: 120px;
+            z-index: -1;
+            animation: treeGentle 6s ease-in-out infinite;
+        }
+
+        .tree-left {
+            left: 5%;
+            transform: scale(1.2);
+        }
+
+        .tree-right {
+            right: 8%;
+            transform: scale(0.9);
+        }
+
+        .tree-trunk {
+            width: 20px;
+            height: 80px;
+            background: linear-gradient(180deg, var(--tree-trunk) 0%, #654321 100%);
+            border-radius: 10px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .tree-leaves {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--tree-leaves) 40%, #228B22 100%);
+            border-radius: 50%;
+            position: absolute;
+            top: -60px;
+            left: -40px;
+            animation: leavesRustle 4s ease-in-out infinite;
+        }
+
+        .tree-leaves::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #90EE90 40%, var(--tree-leaves) 100%);
+            border-radius: 50%;
+            top: -20px;
+            left: -10px;
+            animation: leavesRustle 3s ease-in-out infinite reverse;
+        }
+
+        .tree-leaves::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, #32CD32 40%, #228B22 100%);
+            border-radius: 50%;
+            top: -15px;
+            right: -15px;
+            animation: leavesRustle 5s ease-in-out infinite;
+        }
+
+        .tree-shadow {
+            position: absolute;
+            bottom: -10px;
+            left: -30px;
+            width: 80px;
+            height: 20px;
+            background: var(--tree-shadow);
+            border-radius: 50%;
+            animation: shadowMove 20s ease-in-out infinite;
+        }
+
+        /* Flower sprites scattered throughout */
+        .flower {
+            position: fixed;
+            bottom: 130px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            z-index: -1;
+            animation: flowerBob 3s ease-in-out infinite;
+        }
+
+        .flower-1 {
+            left: 15%;
+            background: #FF69B4;
+            animation-delay: 0s;
+        }
+
+        .flower-2 {
+            left: 25%;
+            background: #FFB6C1;
+            animation-delay: 0.5s;
+        }
+
+        .flower-3 {
+            right: 25%;
+            background: #FFA500;
+            animation-delay: 1s;
+        }
+
+        .flower-4 {
+            right: 35%;
+            background: #FF6347;
+            animation-delay: 1.5s;
+        }
+
+        .flower-5 {
+            left: 45%;
+            background: #FF1493;
+            animation-delay: 2s;
+        }
+
+        /* Particle effects for ambiance */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--particle-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            animation: particleFloat 15s linear infinite;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 6s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 8s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 10s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 12s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 14s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 16s; }
+
+        /* Playground Environment Animations */
+        @keyframes skyAnimation {
+            0%, 100% { 
+                filter: brightness(1) hue-rotate(0deg);
+            }
+            50% { 
+                filter: brightness(1.1) hue-rotate(10deg);
+            }
+        }
+
+        @keyframes cloudDrift {
+            0% {
+                --cloud-x: 20%;
+                --cloud-x2: 60%;
+                --cloud-x3: 80%;
+            }
+            33% {
+                --cloud-x: 25%;
+                --cloud-x2: 65%;
+                --cloud-x3: 85%;
+            }
+            66% {
+                --cloud-x: 15%;
+                --cloud-x2: 55%;
+                --cloud-x3: 75%;
+            }
+            100% {
+                --cloud-x: 20%;
+                --cloud-x2: 60%;
+                --cloud-x3: 80%;
+            }
+        }
+
+        @keyframes grassSway {
+            0% { transform: skewX(0deg); }
+            100% { transform: skewX(1deg); }
+        }
+
+        @keyframes sunPulse {
+            0%, 100% { 
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            50% { 
+                transform: scale(1.05);
+                filter: brightness(1.2);
+            }
+        }
+
+        @keyframes sunRaysRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes treeGentle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-2px) rotate(0.5deg); }
+        }
+
+        @keyframes leavesRustle {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.02) rotate(1deg); }
+            75% { transform: scale(0.98) rotate(-1deg); }
+        }
+
+        @keyframes shadowMove {
+            0%, 100% { transform: translateX(0px) scaleX(1); }
+            50% { transform: translateX(5px) scaleX(1.1); }
+        }
+
+        @keyframes flowerBob {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-3px) scale(1.1); }
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(20px);
+                opacity: 0;
+            }
+        }
+
+        /* Hover effects for grass interaction */
+        .container:hover body::before {
+            animation: grassSway 1s ease-in-out infinite alternate;
+        }
+
+        /* Day/Night cycle toggle */
+        .night-mode {
+            --sky-light: #2C3E50;
+            --sky-deep: #34495E;
+            --sun-color: #F39C12;
+            --particle-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .night-mode body {
+            background: 
+                /* Stars */
+                radial-gradient(circle at 20% 20%, white 1px, transparent 2px),
+                radial-gradient(circle at 80% 30%, white 1px, transparent 2px),
+                radial-gradient(circle at 40% 40%, white 1px, transparent 2px),
+                radial-gradient(circle at 60% 60%, white 1px, transparent 2px),
+                radial-gradient(circle at 30% 80%, white 1px, transparent 2px),
+                /* Moon instead of sun */
+                radial-gradient(circle at 15% 5%, #F4F4F4 0%, transparent 8%),
+                /* Night sky */
+                linear-gradient(180deg, var(--sky-light) 0%, var(--sky-deep) 100%);
         }
         
         /* Animation for dynamic gradient */
@@ -52,92 +378,23 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: var(--container-xl);
             margin: 0 auto;
-            padding: 20px;
+            padding: var(--space-lg);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 48px;
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.95) 0%, 
-                rgba(248, 250, 252, 0.9) 100%);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 64px 40px 56px;
+            margin: 24px 0 48px 0;
+            background: transparent;
+            padding: 40px 40px 48px;
             border-radius: 32px;
-            box-shadow: 
-                0 32px 64px rgba(0, 0, 0, 0.12),
-                0 8px 32px rgba(0, 0, 0, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: none;
+            border: none;
             position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                #667eea 0%, 
-                #764ba2 25%, 
-                #f093fb 50%, 
-                #f5576c 75%, 
-                #4facfe 100%);
-            animation: shimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
-        }
-
-        .header h1 {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'SF Pro Display', system-ui, sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            background: linear-gradient(135deg, 
-                #1a202c 0%, 
-                #2d3748 25%, 
-                #4a5568 50%, 
-                #667eea 75%, 
-                #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 24px;
-            position: relative;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .header p {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
-            font-size: clamp(1.125rem, 2.5vw, 1.375rem);
-            font-weight: 500;
-            line-height: 1.6;
-            color: #64748b;
-            max-width: 600px;
-            margin: 0 auto;
-            letter-spacing: -0.01em;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
+            overflow: visible;
+            z-index: 0;
+            margin-top: 80px;
         }
 
         .main-content {
@@ -289,43 +546,385 @@
             gap: 12px;
         }
 
-        .panel {
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.98) 0%, 
-                rgba(248, 250, 252, 0.95) 100%);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 28px;
+        /* Update playground equipment colors to use unified system */
+        .slide-panel {
+            background: var(--gradient-slide);
+            border-radius: var(--radius-xl) var(--radius-xl) 120px 120px;
+            padding: 40px 32px 60px;
+            box-shadow: var(--shadow-slide-hover);
+            border: none;
+            position: relative;
+            transform: perspective(1000px) rotateX(5deg);
+        }
+
+        .slide-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--swing-brown) 0%, var(--swing-brown-light) 100%);
+            border-radius: var(--radius-sm);
+            box-shadow: inset 0 2px 4px var(--shadow-medium);
+        }
+
+        .slide-panel .form-group::after {
+            content: '';
+            position: absolute;
+            left: -20px;
+            right: -20px;
+            bottom: -14px;
+            height: 8px;
+            background: linear-gradient(90deg, 
+                var(--swing-brown) 0%, 
+                var(--swing-brown-light) 50%, 
+                var(--swing-brown) 100%);
+            border-radius: var(--radius-xs);
+            box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .slide-panel:hover {
+            transform: perspective(1000px) rotateX(8deg) translateY(-5px);
+            box-shadow: var(--shadow-slide-hover);
+        }
+
+        /* SWING SET PANEL - Response Display */
+        .swing-panel {
+            background: var(--gradient-swing);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-swing-hover);
+            border: 4px solid var(--swing-brown-dark);
+            position: relative;
+        }
+
+        .swing-panel::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            right: 20px;
+            height: 20px;
+            background: var(--gradient-swing);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-md), inset 0 2px 0 rgba(255,255,255,0.2);
+        }
+
+        .swing-panel::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            width: 15px;
+            height: calc(100% + 20px);
+            background: var(--gradient-swing);
+            border-radius: var(--radius-sm);
+            box-shadow: 2px 0 4px var(--shadow-light), inset 1px 0 0 rgba(255,255,255,0.2);
+        }
+
+        .swing-panel .swing-post-right {
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            width: 15px;
+            height: calc(100% + 20px);
+            background: var(--gradient-swing);
+            border-radius: var(--radius-sm);
+            box-shadow: -2px 0 4px var(--shadow-light), inset -1px 0 0 rgba(255,255,255,0.2);
+        }
+
+        /* SANDBOX PANEL - Collaboration Area */
+        .sandbox-panel {
+            background: var(--gradient-sandbox);
+            border: 6px solid var(--swing-brown);
+            border-radius: var(--radius-2xl);
             padding: 40px 32px;
-            box-shadow: 
-                0 24px 48px rgba(0, 0, 0, 0.08),
-                0 8px 24px rgba(0, 0, 0, 0.04),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            box-shadow: var(--shadow-sandbox-hover);
+        }
+
+        .sandbox-panel .bucket-icon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            width: 40px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--slide-red) 0%, var(--slide-red-light) 100%);
+            border-radius: 5px 5px 15px 15px;
+            box-shadow: var(--shadow-md), inset 0 2px 0 rgba(255,255,255,0.3);
+        }
+
+        .sandbox-panel .shovel-icon {
+            position: absolute;
+            top: 25px;
+            right: 80px;
+            width: 25px;
+            height: 40px;
+            background: var(--gradient-swing);
+            border-radius: var(--radius-xs);
+            transform: rotate(15deg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* SEESAW PANEL - Settings/Options */
+        .seesaw-panel {
+            background: var(--gradient-grass);
+            border: 4px solid var(--swing-brown);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            position: relative;
+            box-shadow: var(--shadow-grass-hover);
+        }
+
+        .seesaw-panel::before {
+            content: '';
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 30px solid var(--swing-brown);
+            box-shadow: var(--shadow-md);
+        }
+
+        .seesaw-panel .seesaw-board {
+            position: absolute;
+            bottom: 55px;
+            left: 20px;
+            right: 20px;
+            height: 15px;
+            background: var(--gradient-swing);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-md), inset 0 2px 0 rgba(255,255,255,0.2);
+            transform-origin: center center;
+            animation: seesawTilt 6s ease-in-out infinite;
+        }
+
+        .seesaw-panel .seat-left {
+            left: 10px;
+            background: linear-gradient(135deg, var(--slide-red) 0%, var(--slide-red-light) 100%);
+        }
+
+        /* Add missing panel and form-group styles */
+        .panel {
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all var(--transition-bounce);
         }
 
         .panel:hover {
-            transform: translateY(-2px);
-            box-shadow: 
-                0 32px 64px rgba(0, 0, 0, 0.12),
-                0 12px 32px rgba(0, 0, 0, 0.06),
-                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transform: translateY(-5px);
         }
 
-        .panel::before {
+        .slide-panel .form-group {
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+        /* Slide surface texture */
+        .slide-panel::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(102, 126, 234, 0.3) 50%, 
-                transparent 100%);
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.1) 2px,
+                    rgba(255,255,255,0.1) 4px
+                );
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        /* Whoosh animation */
+        @keyframes whoosh {
+            0% { transform: perspective(1000px) rotateX(5deg) translateY(0px); }
+            50% { transform: perspective(1000px) rotateX(8deg) translateY(-10px); }
+            100% { transform: perspective(1000px) rotateX(5deg) translateY(0px); }
+        }
+
+        .slide-panel.whoosh {
+            animation: whoosh 0.8s ease-out;
+        }
+
+        /* Swing seat styling for response area */
+        .swing-panel .response-area {
+            background: linear-gradient(135deg, 
+                var(--swing-brown) 0%, 
+                var(--dirt-brown-light) 100%);
+            border: 3px solid var(--swing-brown-dark);
+            border-radius: var(--radius-lg);
+            position: relative;
+            margin-top: 30px;
+            transform-origin: top center;
+            animation: gentleSwing 4s ease-in-out infinite;
+        }
+
+        /* Chain links */
+        .swing-panel .chain-left,
+        .swing-panel .chain-right {
+            position: absolute;
+            top: -30px;
+            width: 6px;
+            height: 30px;
+            background: repeating-linear-gradient(
+                0deg,
+                #666 0px,
+                #666 3px,
+                #999 3px,
+                #999 6px
+            );
+            border-radius: var(--radius-xs);
+        }
+
+        .swing-panel .chain-left {
+            left: 20px;
+        }
+
+        .swing-panel .chain-right {
+            right: 20px;
+        }
+
+        @keyframes gentleSwing {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(2deg); }
+            75% { transform: rotate(-2deg); }
+        }
+
+        .swing-panel:hover .response-area {
+            animation: gentleSwing 2s ease-in-out infinite;
+        }
+
+        /* Sandy texture */
+        .sandbox-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,193,7,0.3) 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, rgba(255,235,59,0.3) 1px, transparent 1px),
+                radial-gradient(circle at 40% 80%, rgba(255,213,79,0.3) 1px, transparent 1px);
+            background-size: 15px 15px, 20px 20px, 25px 25px;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        .sandbox-panel .bucket-icon::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 5px;
+            right: 5px;
+            height: 8px;
+            background: linear-gradient(135deg, #666 0%, #999 100%);
+            border-radius: var(--radius-xs);
+        }
+
+        .sandbox-panel .shovel-icon::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 12px;
+            background: linear-gradient(135deg, #666 0%, #999 100%);
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        }
+
+        /* Sand castle elements */
+        .sandbox-panel .castle {
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+            width: 60px;
+            height: 40px;
+        }
+
+        .sandbox-panel .castle-tower {
+            position: absolute;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--dirt-brown-light) 0%, var(--dirt-brown) 100%);
+            border-radius: var(--radius-xs) var(--radius-xs) 0 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sandbox-panel .castle-tower:nth-child(1) {
+            left: 0;
+            width: 15px;
+            height: 25px;
+        }
+
+        .sandbox-panel .castle-tower:nth-child(2) {
+            left: 20px;
+            width: 20px;
+            height: 35px;
+        }
+
+        .sandbox-panel .castle-tower:nth-child(3) {
+            right: 0;
+            width: 15px;
+            height: 20px;
+        }
+
+        /* Footprints around edges */
+        .sandbox-panel .footprint {
+            position: absolute;
+            width: 12px;
+            height: 8px;
+            background: rgba(141, 110, 99, 0.3);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: inset 0 1px 2px var(--shadow-light);
+        }
+
+        .sandbox-panel .footprint:nth-of-type(1) { top: 80px; left: 20px; transform: rotate(15deg); }
+        .sandbox-panel .footprint:nth-of-type(2) { top: 120px; left: 35px; transform: rotate(-10deg); }
+        .sandbox-panel .footprint:nth-of-type(3) { bottom: 80px; right: 25px; transform: rotate(25deg); }
+        .sandbox-panel .footprint:nth-of-type(4) { bottom: 120px; right: 40px; transform: rotate(-15deg); }
+
+        /* Colorful seats */
+        .seesaw-panel .seat-left,
+        .seesaw-panel .seat-right {
+            position: absolute;
+            top: -15px;
+            width: 40px;
+            height: 25px;
+            border-radius: var(--radius-lg) var(--radius-lg) 5px 5px;
+            box-shadow: var(--shadow-md), inset 0 2px 0 rgba(255,255,255,0.3);
+        }
+
+        @keyframes seesawTilt {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .seesaw-panel:hover .seesaw-board {
+            animation: seesawTilt 3s ease-in-out infinite;
+        }
+
+        /* Enhanced panel hover effects using unified system */
+        .sandbox-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-sandbox-hover);
+        }
+
+        .seesaw-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-grass-hover);
         }
 
         .panel h2 {
@@ -404,6 +1003,24 @@
             letter-spacing: -0.01em;
             position: relative;
             overflow: hidden;
+        }
+        
+        .method-btn.playground-button {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .method-btn.playground-button .sound-indicator {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #fff 40%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            pointer-events: none;
         }
 
         .method-btn::before {
@@ -1257,10 +1874,46 @@
     </style>
 </head>
 <body>
+    <!-- Playground Environment Elements -->
+    
+    <div class="tree tree-left">
+        <div class="tree-trunk"></div>
+        <div class="tree-leaves"></div>
+        <div class="tree-shadow"></div>
+    </div>
+    
+    <div class="tree tree-right">
+        <div class="tree-trunk"></div>
+        <div class="tree-leaves"></div>
+        <div class="tree-shadow"></div>
+    </div>
+    
+    <div class="flower flower-1"></div>
+    <div class="flower flower-2"></div>
+    <div class="flower flower-3"></div>
+    <div class="flower flower-4"></div>
+    <div class="flower flower-5"></div>
+    
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    
+    <!-- Butterflies for micro-animations -->
+    <div class="butterfly butterfly-1"></div>
+    <div class="butterfly butterfly-2"></div>
+    <div class="butterfly butterfly-3"></div>
+    
+    <!-- Bird chirp indicator -->
+    <div class="bird-chirp" id="birdChirp">🐦</div>
+
     <div class="container">
         <div class="header">
-            <h1>🚀 API Adventure Playground</h1>
-            <p>Test APIs together with your friends! It's like having a magical computer conversation! ✨</p>
         </div>
 
         <div class="connection-status" id="connectionStatus">
@@ -1281,32 +1934,44 @@
             <!-- API Tab Content -->
             <div id="api-tab" class="tab-content active">
                 <div class="tab-grid">
-                    <div class="panel">
-                        <h2>🎯 Build Your API Request</h2>
+                    <div class="panel slide-panel" id="slidePanel">
+                        <h2 class="equipment-heading">🛝 Slide Down Your Request</h2>
                         
                         <div class="form-group">
-                            <label class="tooltip" data-tooltip="Choose how you want to talk to the API!">
+                            <label class="tooltip instruction-text" data-tooltip="Choose how you want to talk to the API!">
                                 🎮 Method (How to ask):
                             </label>
                             <div class="method-selector">
-                                <button class="method-btn active" data-method="GET">📥 GET</button>
-                                <button class="method-btn" data-method="POST">📤 POST</button>
-                                <button class="method-btn" data-method="PUT">✏️ PUT</button>
-                                <button class="method-btn" data-method="DELETE">🗑️ DELETE</button>
+                                <button class="method-btn method-get playground-button bouncy-ball-btn active" data-method="GET">
+                                    🧗‍♀️ GET
+                                    <div class="sound-indicator"></div>
+                                </button>
+                                <button class="method-btn method-post playground-button toy-block-btn" data-method="POST">
+                                    🛝 POST
+                                    <div class="sound-indicator"></div>
+                                </button>
+                                <button class="method-btn method-put playground-button bouncy-ball-btn" data-method="PUT">
+                                    🔧 PUT
+                                    <div class="sound-indicator"></div>
+                                </button>
+                                <button class="method-btn method-delete playground-button toy-block-btn" data-method="DELETE">
+                                    🗑️ DELETE
+                                    <div class="sound-indicator"></div>
+                                </button>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="tooltip" data-tooltip="The web address where the API lives!">
+                            <label class="tooltip instruction-text" data-tooltip="The web address where the API lives!">
                                 🌐 URL (Where to go):
                             </label>
-                            <input type="text" class="form-control" id="urlInput" 
+                            <input type="text" class="form-control sandbox-input" id="urlInput" 
                                    placeholder="https://api.example.com/data" 
                                    value="https://dog.ceo/api/breeds/image/random">
                         </div>
 
                         <div class="form-group">
-                            <label class="tooltip" data-tooltip="Extra information to send with your request!">
+                            <label class="tooltip instruction-text" data-tooltip="Extra information to send with your request!">
                                 📋 Headers (Special instructions):
                             </label>
                             <div class="headers-section" id="headersSection">
@@ -1320,7 +1985,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="tooltip" data-tooltip="Data to send with POST/PUT requests!">
+                            <label class="tooltip instruction-text" data-tooltip="Data to send with POST/PUT requests!">
                                 📦 Request Body (What to send):
                             </label>
                             <textarea class="form-control" id="bodyInput" rows="4" 
@@ -1332,14 +1997,17 @@
                         </button>
                     </div>
 
-                    <div class="panel">
-                        <h2>📬 API Response</h2>
+                    <div class="panel swing-panel" id="swingPanel">
+                        <div class="swing-post-right"></div>
+                        <div class="chain-left"></div>
+                        <div class="chain-right"></div>
+                        <h2>🎠 Swing Into Responses</h2>
                         <div class="response-area" id="responseArea">
                             <div class="response-content">
                                 <div class="welcome-message">
-                                    <h3>🌟 Ready to Launch!</h3>
-                                    <p>Your API response will appear here when you make a request.</p>
-                                    <p>Try the example request to see a random dog picture! 🐕</p>
+                                    <h3 class="toy-heading">🌟 Ready to Launch!</h3>
+                                    <p class="body-text">Your API response will appear here when you make a request.</p>
+                                    <p class="body-text">Try the example request to see a random dog picture! 🐕</p>
                                     <div class="example-apis">
                                         <div class="example-api" onclick="loadQuickExample('https://official-joke-api.appspot.com/random_joke')">
                                             😂 Random Joke API
@@ -1360,8 +2028,19 @@
 
             <!-- Collaboration Tab Content -->
             <div id="collaboration-tab" class="tab-content">
-                <div class="collaboration-panel-content">
-                    <h2>👥 Collaboration Central</h2>
+                <div class="collaboration-panel-content sandbox-panel">
+                    <div class="bucket-icon"></div>
+                    <div class="shovel-icon"></div>
+                    <div class="castle">
+                        <div class="castle-tower"></div>
+                        <div class="castle-tower"></div>
+                        <div class="castle-tower"></div>
+                    </div>
+                    <div class="footprint"></div>
+                    <div class="footprint"></div>
+                    <div class="footprint"></div>
+                    <div class="footprint"></div>
+                    <h2>🏖️ Sandbox Collaboration</h2>
                     
                     <div class="form-group">
                         <label>🏷️ Your Name:</label>
@@ -1413,6 +2092,24 @@
             updateConnectionStatus('connecting');
             loadSavedUsername(); // Load saved username from localStorage
             updateUserRegistrationStatus(); // Initialize UI state
+            
+            // Add gentle movements to playground equipment
+            setTimeout(() => {
+                const slidePanel = document.getElementById('slidePanel');
+                if (slidePanel) {
+                    slidePanel.classList.add('gentle-sway');
+                }
+                
+                const swingPanel = document.getElementById('swingPanel');
+                if (swingPanel) {
+                    swingPanel.classList.add('gentle-bob');
+                }
+                
+                // Add light-up hover effects to all panels
+                document.querySelectorAll('.panel').forEach(panel => {
+                    panel.classList.add('light-up-hover');
+                });
+            }, 1000);
         });
 
         function loadSavedUsername() {
@@ -1586,8 +2283,16 @@
             }
 
             const sendBtn = document.getElementById('sendBtn');
+            const slidePanel = document.getElementById('slidePanel');
+            
             sendBtn.disabled = true;
             sendBtn.innerHTML = '<span class="loading"></span> Launching...';
+            
+            // Add whoosh animation to slide panel
+            slidePanel.classList.add('whoosh');
+            setTimeout(() => {
+                slidePanel.classList.remove('whoosh');
+            }, 800);
 
             // Collect headers
             const headers = {};
@@ -1628,6 +2333,22 @@
             const responseArea = document.getElementById('responseArea');
             const status = response.status;
             const isSuccess = status >= 200 && status < 300;
+            
+            // Use optimized animation queue system
+            if (isSuccess) {
+                queueAnimation(() => createSuccessParticles());
+                queueAnimation(() => createConfetti());
+                queueAnimation(() => createBalloons());
+                queueAnimation(() => triggerBirdChirp());
+            } else {
+                // Trigger error animations with micro-interaction
+                const slidePanel = document.getElementById('slidePanel');
+                addMicroInteraction(slidePanel, 'shake');
+                slidePanel.classList.add('sad-equipment');
+                setTimeout(() => {
+                    slidePanel.classList.remove('sad-equipment');
+                }, 2000);
+            }
             
             const statusClass = isSuccess ? 'status-success' : 'status-error';
             const statusEmoji = isSuccess ? '🎉' : '😅';
@@ -1731,36 +2452,32 @@
         function displayError(error, friendlyMessage) {
             const responseArea = document.getElementById('responseArea');
             
-            // Create structured error content
+            // Create structured error content with friendly styling
             const responseContent = document.createElement('div');
             responseContent.className = 'response-content';
             
-            // Error section
+            // Error section with friendly error styling
             const errorSection = document.createElement('div');
-            errorSection.className = 'response-section';
+            errorSection.className = 'response-section friendly-error';
             errorSection.innerHTML = `
-                <h4>😅 Something Went Wrong</h4>
-                <div class="response-meta">
-                    <div class="response-meta-item">
-                        <span>❌</span>
-                        <span>Error Occurred</span>
-                    </div>
+                <div class="error-title">😅 Oops! Something Went Wrong</div>
+                <div class="playground-metaphor">
+                    <div class="metaphor-title">🏰 What happened?</div>
+                    <div class="metaphor-explanation">${friendlyMessage || 'The API had a little hiccup! It\'s like when a toy doesn\'t work as expected - sometimes these things happen and that\'s totally okay!'}</div>
                 </div>
-                <div style="margin-top: 16px;">
-                    <p><strong>Kid-friendly explanation:</strong></p>
-                    <p>${friendlyMessage || 'The API had a little hiccup! It\'s like when a toy doesn\'t work as expected.'}</p>
-                    
-                    <p style="margin-top: 16px;"><strong>Technical details:</strong></p>
-                    <div class="response-data-container">
-                        <div class="response-data-header">Error Details</div>
-                        <div class="response-data">${error}</div>
-                    </div>
-                    
-                    <p style="margin-top: 16px;"><strong>💡 Try checking:</strong></p>
+                
+                <div class="response-data-container">
+                    <div class="response-data-header">Technical Details (for grown-ups)</div>
+                    <div class="response-data code-text">${error}</div>
+                </div>
+                
+                <div class="instruction-text">
+                    <strong>💡 Let's try these steps:</strong>
                     <ul style="margin-left: 20px; margin-top: 8px;">
-                        <li>Is the URL correct?</li>
-                        <li>Is your internet connection working?</li>
-                        <li>Maybe try a different API?</li>
+                        <li>🔍 Check if the URL looks right</li>
+                        <li>📶 Make sure your internet is working</li>
+                        <li>🎯 Try one of our example APIs instead</li>
+                        <li>🤔 Ask a grown-up for help if you need it</li>
                     </ul>
                 </div>
             `;
@@ -2058,6 +2775,31 @@
                     document.body.style.filter = '';
                 }, 3000);
             }
+            
+            // Day/Night cycle toggle
+            if (e.ctrlKey && e.shiftKey && e.key === 'N') {
+                document.body.classList.toggle('night-mode');
+                const isNight = document.body.classList.contains('night-mode');
+                addActivity(`🌙 ${isNight ? 'Night' : 'Day'} mode activated!`);
+                showUserFeedback(`🌙 Switched to ${isNight ? 'Night' : 'Day'} mode!`);
+            }
+        });
+
+        // Grass hover interaction
+        document.addEventListener('mousemove', function(e) {
+            if (e.clientY > window.innerHeight - 150) {
+                // Mouse is near the grass area
+                const grassElements = document.querySelectorAll('.flower');
+                grassElements.forEach((flower, index) => {
+                    const delay = index * 100;
+                    setTimeout(() => {
+                        flower.style.transform = 'translateY(-5px) scale(1.2)';
+                        setTimeout(() => {
+                            flower.style.transform = '';
+                        }, 300);
+                    }, delay);
+                });
+            }
         });
 
         // Auto-focus username input when page loads
@@ -2082,6 +2824,232 @@
             
             // Show selected tab content
             document.getElementById(tabId).classList.add('active');
+        }
+        
+        // ===== OPTIMIZED ANIMATION FUNCTIONS =====
+        // Reduced particle count and simplified animations for better performance
+        
+        function createSuccessParticles() {
+            // Check if user prefers reduced motion
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                return; // Skip animation
+            }
+            
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'success-particles';
+            document.body.appendChild(particlesContainer);
+            
+            // Reduced from 20 to 12 particles for better performance
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'success-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 1.5 + 's';
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Cleanup after animation
+            setTimeout(() => {
+                if (particlesContainer.parentNode) {
+                    particlesContainer.parentNode.removeChild(particlesContainer);
+                }
+            }, 2500);
+        }
+        
+        function createConfetti() {
+            // Check if user prefers reduced motion
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                return; // Skip animation
+            }
+            
+            const confettiContainer = document.createElement('div');
+            confettiContainer.className = 'confetti-container';
+            document.body.appendChild(confettiContainer);
+            
+            // Reduced from 50 to 25 confetti pieces for better performance
+            for (let i = 0; i < 25; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.animationDuration = (Math.random() * 1 + 2) + 's';
+                confettiContainer.appendChild(confetti);
+            }
+            
+            // Cleanup after animation
+            setTimeout(() => {
+                if (confettiContainer.parentNode) {
+                    confettiContainer.parentNode.removeChild(confettiContainer);
+                }
+            }, 3500);
+        }
+        
+        function createBalloons() {
+            // Check if user prefers reduced motion
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                return; // Skip animation
+            }
+            
+            const balloonColors = ['var(--slide-red)', 'var(--sandbox-yellow)', 'var(--grass-green)', '#9c27b0'];
+            
+            balloonColors.forEach((color, index) => {
+                const balloon = document.createElement('div');
+                balloon.className = `balloon balloon-${index + 1}`;
+                balloon.style.background = color;
+                balloon.style.left = (15 + index * 20) + '%';
+                balloon.style.animationDelay = (index * 0.3) + 's';
+                document.body.appendChild(balloon);
+                
+                // Cleanup after animation
+                setTimeout(() => {
+                    if (balloon.parentNode) {
+                        balloon.parentNode.removeChild(balloon);
+                    }
+                }, 3500 + (index * 300));
+            });
+        }
+        
+        function triggerBirdChirp() {
+            // Check if user prefers reduced motion
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                return; // Skip animation
+            }
+            
+            const birdChirp = document.getElementById('birdChirp');
+            birdChirp.classList.add('active');
+            
+            setTimeout(() => {
+                birdChirp.classList.remove('active');
+            }, 1500);
+        }
+        
+        // ===== PERFORMANCE OPTIMIZATION FUNCTIONS =====
+        
+        // Throttle function for performance-critical events
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
+        
+        // Debounce function for input events
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        // Optimized animation state management
+        let animationQueue = [];
+        let isAnimating = false;
+        
+        function queueAnimation(animationFunction) {
+            animationQueue.push(animationFunction);
+            if (!isAnimating) {
+                processAnimationQueue();
+            }
+        }
+        
+        function processAnimationQueue() {
+            if (animationQueue.length === 0) {
+                isAnimating = false;
+                return;
+            }
+            
+            isAnimating = true;
+            const nextAnimation = animationQueue.shift();
+            nextAnimation();
+            
+            // Process next animation after a short delay to prevent overwhelming
+            setTimeout(processAnimationQueue, 100);
+        }
+        
+        // Enhanced feedback system with reduced cognitive load
+        function showOptimizedFeedback(message, type = 'info') {
+            // Check if user prefers reduced motion for alternative feedback
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            
+            const feedback = document.createElement('div');
+            feedback.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)' : 
+                           type === 'error' ? 'linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%)' : 
+                           'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'};
+                color: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                font-size: 1rem;
+                font-weight: 600;
+                z-index: 10000;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+                max-width: 300px;
+                word-wrap: break-word;
+                ${prefersReducedMotion ? 'transform: translateX(0);' : 'transform: translateX(100%); transition: transform 0.3s ease-out;'}
+            `;
+            feedback.textContent = message;
+            
+            document.body.appendChild(feedback);
+            
+            // Animate in
+            if (!prefersReducedMotion) {
+                requestAnimationFrame(() => {
+                    feedback.style.transform = 'translateX(0)';
+                });
+            }
+            
+            // Remove after delay
+            setTimeout(() => {
+                if (prefersReducedMotion) {
+                    feedback.remove();
+                } else {
+                    feedback.style.transform = 'translateX(100%)';
+                    setTimeout(() => feedback.remove(), 300);
+                }
+            }, 3000);
+        }
+        
+        // Enhanced micro-interaction system
+        function addMicroInteraction(element, type = 'bounce') {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                // Provide alternative feedback for reduced motion
+                element.style.outline = '2px solid var(--playground-red)';
+                element.style.outlineOffset = '2px';
+                setTimeout(() => {
+                    element.style.outline = '';
+                    element.style.outlineOffset = '';
+                }, 200);
+                return;
+            }
+            
+            element.style.transform = type === 'bounce' ? 'scale(0.95)' : 
+                                    type === 'shake' ? 'translateX(-2px)' : 
+                                    'translateY(-2px)';
+            
+            setTimeout(() => {
+                element.style.transform = type === 'bounce' ? 'scale(1.02)' : 
+                                        type === 'shake' ? 'translateX(2px)' : 
+                                        'translateY(0px)';
+                
+                setTimeout(() => {
+                    element.style.transform = '';
+                }, 100);
+            }, 100);
         }
     </script>
 </body>

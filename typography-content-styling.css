@@ -1,0 +1,858 @@
+/* ===============================================
+   AREA 4: TYPOGRAPHY & CONTENT STYLING
+   Kid-Friendly API Playground Typography System
+   =============================================== */
+
+/* ===============================================
+   1. SIMPLIFIED TYPOGRAPHY SYSTEM
+   =============================================== */
+
+:root {
+    /* Typography Scale - Clear hierarchy with 4-5 font sizes */
+    --text-xs: 12px;
+    --text-sm: 14px;
+    --text-base: 16px;
+    --text-lg: 18px;
+    --text-xl: 24px;
+    --text-2xl: 32px;
+    --text-3xl: 48px;
+    
+    /* Font Families - Performance-first with readable fallbacks */
+    --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+    --font-headings: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+    --font-code: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Consolas', monospace;
+    
+    /* Playground Colors for Typography */
+    --text-primary: #2D3748;
+    --text-secondary: #4A5568;
+    --text-muted: #718096;
+    --text-bright: #1A202C;
+    --text-playground: #E53E3E;
+    --text-success: #38A169;
+    --text-warning: #D69E2E;
+    --text-info: #3182CE;
+    
+    /* Text Shadow Effects */
+    --chalk-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), 
+                    -1px -1px 2px rgba(0, 0, 0, 0.1);
+    --playground-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+    --fun-shadow: 2px 2px 0px #FF6B6B, 
+                  4px 4px 0px #4ECDC4;
+}
+
+/* ===============================================
+   2. HEADING STYLES WITH PLAYGROUND THEME
+   =============================================== */
+
+/* Main Title - Playground Sign Style */
+.playground-title,
+h1.playground-title {
+    font-family: var(--font-headings);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 400;
+    color: var(--text-playground);
+    text-shadow: var(--chalk-shadow);
+    transform: rotate(-1deg);
+    display: inline-block;
+    position: relative;
+    margin: 0.5em 0;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+}
+
+.playground-title::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -15px;
+    right: -15px;
+    bottom: -10px;
+    background: linear-gradient(135deg, 
+        #FFE082 0%, 
+        #FFCC02 50%, 
+        #FFB300 100%);
+    border-radius: 20px;
+    z-index: -1;
+    transform: rotate(1deg);
+    box-shadow: 0 8px 24px rgba(255, 193, 7, 0.3);
+}
+
+.playground-title::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -10px;
+    right: -10px;
+    bottom: -5px;
+    border: 3px solid var(--tree-brown, #8D6E63);
+    border-radius: 15px;
+    z-index: -1;
+    transform: rotate(-0.5deg);
+}
+
+/* Section Headings - Playground Equipment Style */
+.equipment-heading,
+h2.equipment-heading {
+    font-family: var(--font-headings);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 400;
+    color: var(--text-bright);
+    text-shadow: var(--playground-shadow);
+    transform: rotate(-0.5deg);
+    display: inline-block;
+    margin: 1em 0 0.5em 0;
+    position: relative;
+}
+
+.equipment-heading::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, 
+        #FF6B6B 0%, 
+        #4ECDC4 50%, 
+        #45B7D1 100%);
+    border-radius: 2px;
+    transform: rotate(0.5deg);
+}
+
+/* Subsection Headings - Toy Box Style */
+.toy-heading,
+h3.toy-heading {
+    font-family: var(--font-body);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin: 0.8em 0 0.4em 0;
+    position: relative;
+    display: inline-block;
+}
+
+.toy-heading::before {
+    content: '🧸';
+    margin-right: 0.5em;
+    font-size: 0.8em;
+    animation: toyBounce 2s ease-in-out infinite;
+}
+
+@keyframes toyBounce {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-3px) rotate(5deg); }
+}
+
+/* Small Headings - Playground Signs */
+.sign-heading,
+h4.sign-heading {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 0.6em 0 0.3em 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+    display: inline-block;
+}
+
+.sign-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--text-secondary);
+    border-radius: 1px;
+}
+
+/* ===============================================
+   3. BODY TEXT STYLES
+   =============================================== */
+
+/* Primary Body Text - Easy Reading */
+.playground-text,
+.body-text {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text-primary);
+    margin: 0 0 1em 0;
+}
+
+/* Friendly Instructions */
+.instruction-text {
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    background: linear-gradient(135deg, 
+        rgba(255, 248, 220, 0.8) 0%, 
+        rgba(255, 239, 213, 0.6) 100%);
+    padding: 12px 16px;
+    border-radius: 12px;
+    border-left: 4px solid #FFB300;
+    margin: 1em 0;
+    position: relative;
+}
+
+.instruction-text::before {
+    content: '💡';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #FFB300;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+/* Code Text - Rounded Monospace */
+.code-text,
+code {
+    font-family: var(--font-code);
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    font-weight: 500;
+    background: linear-gradient(135deg, 
+        rgba(248, 250, 252, 0.9) 0%, 
+        rgba(241, 245, 249, 0.8) 100%);
+    color: var(--text-bright);
+    padding: 2px 6px;
+    border-radius: 6px;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+pre.code-block {
+    font-family: var(--font-code);
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    font-weight: 400;
+    background: linear-gradient(135deg, 
+        rgba(248, 250, 252, 0.95) 0%, 
+        rgba(241, 245, 249, 0.9) 100%);
+    color: var(--text-bright);
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 2px solid rgba(226, 232, 240, 0.4);
+    overflow-x: auto;
+    line-height: 1.5;
+    margin: 1em 0;
+    position: relative;
+}
+
+pre.code-block::before {
+    content: '</>';
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+/* ===============================================
+   4. TEXT EFFECTS & ANIMATIONS
+   =============================================== */
+
+/* Chalk Text Effect */
+.chalk-text {
+    color: white;
+    text-shadow: var(--chalk-shadow);
+    background: linear-gradient(135deg, 
+        #2D3748 0%, 
+        #4A5568 100%);
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: inline-block;
+    position: relative;
+}
+
+.chalk-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 1px, transparent 1px),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 15px 15px, 20px 20px;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+/* Colorful Highlight Text */
+.highlight-text {
+    background: linear-gradient(135deg, 
+        #FFE082 0%, 
+        #FFCC02 50%, 
+        #FFB300 100%);
+    color: var(--text-bright);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    display: inline-block;
+    transform: rotate(-1deg);
+    box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
+}
+
+/* Bouncy Text Animation */
+.bouncy-text {
+    display: inline-block;
+    animation: textBounce 2s ease-in-out infinite;
+}
+
+@keyframes textBounce {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-3px); }
+}
+
+/* Wobble Text on Hover */
+.wobble-text {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.wobble-text:hover {
+    animation: textWobble 0.6s ease-in-out;
+}
+
+@keyframes textWobble {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-2deg); }
+    75% { transform: rotate(2deg); }
+}
+
+/* Rainbow Text Effect */
+.rainbow-text {
+    background: linear-gradient(45deg, 
+        #FF6B6B 0%, 
+        #4ECDC4 25%, 
+        #45B7D1 50%, 
+        #96CEB4 75%, 
+        #FFEAA7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    animation: rainbowShift 3s ease-in-out infinite;
+}
+
+@keyframes rainbowShift {
+    0%, 100% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(180deg); }
+}
+
+/* ===============================================
+   5. SPEECH BUBBLE STYLING
+   =============================================== */
+
+.speech-bubble {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.95) 0%, 
+        rgba(248, 250, 252, 0.9) 100%);
+    border: 3px solid #4ECDC4;
+    border-radius: 20px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    position: relative;
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    color: var(--text-primary);
+    box-shadow: 0 8px 24px rgba(78, 205, 196, 0.2);
+}
+
+.speech-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 30px;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid #4ECDC4;
+}
+
+.speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -9px;
+    left: 32px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgba(255, 255, 255, 0.95);
+}
+
+/* Character Speech Bubbles */
+.character-speech {
+    position: relative;
+    padding-left: 60px;
+}
+
+.character-speech::before {
+    content: '🤖';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);
+}
+
+/* ===============================================
+   6. PLAYGROUND ICONOGRAPHY SYSTEM
+   =============================================== */
+
+/* API Method Icons as Playground Activities */
+.method-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+}
+
+.method-get {
+    background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+    color: white;
+}
+
+.method-get::before {
+    content: '🧗‍♀️';
+    font-size: 1.2em;
+}
+
+.method-post {
+    background: linear-gradient(135deg, #FF6B6B 0%, #EE5A52 100%);
+    color: white;
+}
+
+.method-post::before {
+    content: '🛝';
+    font-size: 1.2em;
+}
+
+.method-put {
+    background: linear-gradient(135deg, #FFE082 0%, #FFB300 100%);
+    color: var(--text-bright);
+}
+
+.method-put::before {
+    content: '🔧';
+    font-size: 1.2em;
+}
+
+.method-delete {
+    background: linear-gradient(135deg, #A0AEC0 0%, #718096 100%);
+    color: white;
+}
+
+.method-delete::before {
+    content: '🗑️';
+    font-size: 1.2em;
+}
+
+/* Status Indicators as Playground Signals */
+.status-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.status-success {
+    background: linear-gradient(135deg, #C6F6D5 0%, #9AE6B4 100%);
+    color: #22543D;
+    border: 2px solid #68D391;
+}
+
+.status-success::before {
+    content: '🟢';
+    animation: flagWave 2s ease-in-out infinite;
+}
+
+.status-error {
+    background: linear-gradient(135deg, #FED7D7 0%, #FCA5A5 100%);
+    color: #742A2A;
+    border: 2px solid #F56565;
+}
+
+.status-error::before {
+    content: '🔴';
+    animation: flagWave 2s ease-in-out infinite;
+}
+
+.status-warning {
+    background: linear-gradient(135deg, #FEFCBF 0%, #FAF089 100%);
+    color: #744210;
+    border: 2px solid #ECC94B;
+}
+
+.status-warning::before {
+    content: '🟡';
+    animation: flagWave 2s ease-in-out infinite;
+}
+
+@keyframes flagWave {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-5deg) scale(1.1); }
+    75% { transform: rotate(5deg) scale(1.1); }
+}
+
+/* User Avatar Characters */
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    position: relative;
+    overflow: hidden;
+}
+
+.user-avatar.playground-kid-1 {
+    background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+}
+
+.user-avatar.playground-kid-1::before {
+    content: '👧';
+}
+
+.user-avatar.playground-kid-2 {
+    background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%);
+}
+
+.user-avatar.playground-kid-2::before {
+    content: '👦';
+}
+
+.user-avatar.playground-kid-3 {
+    background: linear-gradient(135deg, #96CEB4 0%, #FFEAA7 100%);
+}
+
+.user-avatar.playground-kid-3::before {
+    content: '🧒';
+}
+
+/* ===============================================
+   7. KID-FRIENDLY MESSAGING SYSTEM
+   =============================================== */
+
+/* Error Messages - Friendly & Encouraging */
+.friendly-error {
+    background: linear-gradient(135deg, 
+        rgba(254, 215, 215, 0.9) 0%, 
+        rgba(252, 165, 165, 0.8) 100%);
+    border: 2px solid #F56565;
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-family: var(--font-body);
+    color: #742A2A;
+    position: relative;
+}
+
+.friendly-error::before {
+    content: '😅';
+    position: absolute;
+    left: -12px;
+    top: -12px;
+    background: #FED7D7;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    border: 2px solid #F56565;
+}
+
+.friendly-error .error-title {
+    font-weight: 700;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+}
+
+.friendly-error .error-suggestion {
+    font-size: 0.9em;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(245, 101, 101, 0.3);
+}
+
+/* Success Messages - Celebratory */
+.celebration-message {
+    background: linear-gradient(135deg, 
+        rgba(198, 246, 213, 0.9) 0%, 
+        rgba(154, 230, 180, 0.8) 100%);
+    border: 2px solid #68D391;
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-family: var(--font-body);
+    color: #22543D;
+    position: relative;
+    overflow: hidden;
+}
+
+.celebration-message::before {
+    content: '🎉';
+    position: absolute;
+    left: -12px;
+    top: -12px;
+    background: #C6F6D5;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    border: 2px solid #68D391;
+    animation: celebrationBounce 1s ease-in-out infinite;
+}
+
+@keyframes celebrationBounce {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(10deg); }
+}
+
+/* Loading Messages - Fun & Engaging */
+.fun-loading {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 12px 16px;
+    background: linear-gradient(135deg, 
+        rgba(241, 245, 249, 0.9) 0%, 
+        rgba(248, 250, 252, 0.8) 100%);
+    border-radius: 12px;
+    border: 2px solid rgba(226, 232, 240, 0.6);
+}
+
+.fun-loading::before {
+    content: '🎠';
+    font-size: 1.5em;
+    animation: loadingCarousel 2s linear infinite;
+}
+
+@keyframes loadingCarousel {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.fun-loading-messages {
+    animation: loadingTextCycle 3s ease-in-out infinite;
+}
+
+/* Playground Metaphor Explanations */
+.playground-metaphor {
+    background: linear-gradient(135deg, 
+        rgba(255, 248, 220, 0.9) 0%, 
+        rgba(255, 239, 213, 0.8) 100%);
+    border: 2px solid #FFB300;
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-family: var(--font-body);
+    color: var(--text-bright);
+    position: relative;
+}
+
+.playground-metaphor::before {
+    content: '🏰';
+    position: absolute;
+    left: -12px;
+    top: -12px;
+    background: #FFEAA7;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    border: 2px solid #FFB300;
+}
+
+.playground-metaphor .metaphor-title {
+    font-weight: 700;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    color: #744210;
+}
+
+.playground-metaphor .metaphor-explanation {
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/* ===============================================
+   8. ACCESSIBILITY ENHANCEMENTS
+   =============================================== */
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    :root {
+        --text-primary: #000000;
+        --text-secondary: #333333;
+        --text-muted: #666666;
+    }
+    
+    .chalk-text {
+        background: #000000;
+        color: #FFFFFF;
+        border: 2px solid #FFFFFF;
+    }
+    
+    .highlight-text {
+        background: #FFFF00;
+        color: #000000;
+        border: 2px solid #000000;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .bouncy-text,
+    .wobble-text:hover,
+    .celebration-message::before,
+    .fun-loading::before,
+    .status-success::before,
+    .status-error::before,
+    .status-warning::before,
+    .toy-heading::before {
+        animation: none;
+    }
+    
+    .playground-title,
+    .equipment-heading {
+        transform: none;
+    }
+}
+
+/* Focus Indicators for Keyboard Navigation */
+.playground-title:focus,
+.equipment-heading:focus,
+.toy-heading:focus,
+.sign-heading:focus {
+    outline: 3px solid #4ECDC4;
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* ===============================================
+   9. RESPONSIVE TYPOGRAPHY
+   =============================================== */
+
+@media (max-width: 768px) {
+    .playground-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+    
+    .equipment-heading {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+    
+    .speech-bubble {
+        padding: 12px 16px;
+        border-radius: 16px;
+    }
+    
+    .character-speech {
+        padding-left: 50px;
+    }
+    
+    .character-speech::before {
+        width: 32px;
+        height: 32px;
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .playground-title {
+        font-size: clamp(1.75rem, 10vw, 2.5rem);
+        transform: rotate(0deg);
+    }
+    
+    .equipment-heading {
+        font-size: clamp(1.25rem, 8vw, 1.75rem);
+        transform: rotate(0deg);
+    }
+    
+    .method-icon,
+    .status-flag {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    
+    .user-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 1.2em;
+    }
+}
+
+/* ===============================================
+   10. PRINT STYLES
+   =============================================== */
+
+@media print {
+    .playground-title,
+    .equipment-heading,
+    .toy-heading,
+    .sign-heading {
+        color: #000000 !important;
+        text-shadow: none !important;
+        transform: none !important;
+    }
+    
+    .playground-title::before,
+    .playground-title::after,
+    .equipment-heading::before {
+        display: none !important;
+    }
+    
+    .speech-bubble,
+    .friendly-error,
+    .celebration-message,
+    .playground-metaphor {
+        border: 2px solid #000000 !important;
+        background: #FFFFFF !important;
+        color: #000000 !important;
+    }
+}

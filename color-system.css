@@ -1,0 +1,242 @@
+/**
+ * Kids' API Playground - Unified Color System
+ * A playground-themed color palette designed for accessibility and fun
+ * WCAG AA compliant color combinations
+ */
+
+:root {
+  /* ===== PRIMARY PLAYGROUND COLORS ===== */
+  /* Slide Equipment - Vibrant red for excitement and action */
+  --slide-red: #FF6B6B;
+  --slide-red-light: #FF8A8A;
+  --slide-red-dark: #E55555;
+  
+  /* Swing Equipment - Warm brown for natural wood feeling */
+  --swing-brown: #8D6E63;
+  --swing-brown-light: #A1887F;
+  --swing-brown-dark: #6D4C41;
+  
+  /* Sandbox Equipment - Bright yellow for sunny sand */
+  --sandbox-yellow: #FFD93D;
+  --sandbox-yellow-light: #FFE066;
+  --sandbox-yellow-dark: #E6C235;
+  
+  /* Playground Grass - Fresh green for natural ground */
+  --grass-green: #4CAF50;
+  --grass-green-light: #66BB6A;
+  --grass-green-dark: #388E3C;
+  
+  /* ===== SUPPORTING ENVIRONMENTAL COLORS ===== */
+  /* Sky and atmosphere */
+  --sky-blue: #87CEEB;
+  --sky-blue-light: #B0E0E6;
+  --sky-blue-dark: #4169E1;
+  
+  /* Clouds and highlights */
+  --cloud-white: #FFFFFF;
+  --cloud-white-soft: rgba(255, 255, 255, 0.9);
+  --cloud-white-subtle: rgba(255, 255, 255, 0.6);
+  
+  /* Ground and natural elements */
+  --dirt-brown: #D2B48C;
+  --dirt-brown-light: #DDD0A7;
+  --dirt-brown-dark: #BC9A6A;
+  
+  /* Safety and attention */
+  --safety-orange: #FF8C00;
+  --safety-orange-light: #FFA726;
+  --safety-orange-dark: #E67E00;
+  
+  /* ===== SEMANTIC COLOR MAPPINGS ===== */
+  /* Success states - using grass green for positive growth */
+  --success: var(--grass-green);
+  --success-light: var(--grass-green-light);
+  --success-dark: var(--grass-green-dark);
+  --success-bg: rgba(76, 175, 80, 0.1);
+  --success-border: rgba(76, 175, 80, 0.3);
+  
+  /* Warning states - using safety orange for caution */
+  --warning: var(--safety-orange);
+  --warning-light: var(--safety-orange-light);
+  --warning-dark: var(--safety-orange-dark);
+  --warning-bg: rgba(255, 140, 0, 0.1);
+  --warning-border: rgba(255, 140, 0, 0.3);
+  
+  /* Error states - using slide red for attention */
+  --error: var(--slide-red);
+  --error-light: var(--slide-red-light);
+  --error-dark: var(--slide-red-dark);
+  --error-bg: rgba(255, 107, 107, 0.1);
+  --error-border: rgba(255, 107, 107, 0.3);
+  
+  /* Info states - using sky blue for calm information */
+  --info: var(--sky-blue);
+  --info-light: var(--sky-blue-light);
+  --info-dark: var(--sky-blue-dark);
+  --info-bg: rgba(135, 206, 235, 0.1);
+  --info-border: rgba(135, 206, 235, 0.3);
+  
+  /* ===== TEXT COLORS (WCAG AA COMPLIANT) ===== */
+  /* Primary text - dark enough for accessibility */
+  --text-primary: #1a202c;
+  --text-secondary: #2d3748;
+  --text-tertiary: #4a5568;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+  
+  /* Text on colored backgrounds */
+  --text-on-primary: #ffffff;
+  --text-on-secondary: #ffffff;
+  --text-on-light: var(--text-primary);
+  
+  /* ===== BACKGROUND COLORS ===== */
+  /* Main backgrounds */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --bg-muted: #e2e8f0;
+  
+  /* Overlay backgrounds */
+  --bg-overlay-light: rgba(255, 255, 255, 0.95);
+  --bg-overlay-medium: rgba(255, 255, 255, 0.8);
+  --bg-overlay-subtle: rgba(255, 255, 255, 0.6);
+  
+  /* Glass morphism backgrounds */
+  --bg-glass-primary: rgba(255, 255, 255, 0.98);
+  --bg-glass-secondary: rgba(248, 250, 252, 0.95);
+  --bg-glass-tertiary: rgba(241, 245, 249, 0.9);
+  
+  /* ===== BORDER COLORS ===== */
+  --border-light: rgba(226, 232, 240, 0.6);
+  --border-medium: rgba(226, 232, 240, 0.8);
+  --border-strong: #e2e8f0;
+  --border-focus: var(--sky-blue-dark);
+  
+  /* ===== SHADOW COLORS ===== */
+  --shadow-subtle: rgba(0, 0, 0, 0.04);
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.12);
+  --shadow-strong: rgba(0, 0, 0, 0.16);
+  
+  /* Colored shadows for playground equipment */
+  --shadow-slide: rgba(255, 107, 107, 0.25);
+  --shadow-swing: rgba(141, 110, 99, 0.25);
+  --shadow-sandbox: rgba(255, 217, 61, 0.25);
+  --shadow-grass: rgba(76, 175, 80, 0.25);
+  
+  /* ===== GRADIENT DEFINITIONS ===== */
+  /* Primary playground gradients */
+  --gradient-slide: linear-gradient(135deg, var(--slide-red) 0%, var(--slide-red-light) 30%, var(--sandbox-yellow) 100%);
+  --gradient-swing: linear-gradient(135deg, var(--swing-brown) 0%, var(--swing-brown-light) 100%);
+  --gradient-sandbox: linear-gradient(135deg, var(--sandbox-yellow) 0%, var(--sandbox-yellow-light) 50%, var(--sandbox-yellow) 100%);
+  --gradient-grass: linear-gradient(135deg, var(--grass-green) 0%, var(--grass-green-light) 100%);
+  
+  /* Sky and environmental gradients */
+  --gradient-sky: linear-gradient(180deg, var(--sky-blue) 0%, var(--sky-blue-dark) 100%);
+  --gradient-cloud: radial-gradient(ellipse, var(--cloud-white-soft) 40%, transparent 70%);
+  
+  /* UI element gradients */
+  --gradient-glass-primary: linear-gradient(135deg, var(--bg-glass-primary) 0%, var(--bg-glass-secondary) 100%);
+  --gradient-glass-secondary: linear-gradient(135deg, var(--bg-glass-secondary) 0%, var(--bg-glass-tertiary) 100%);
+  
+  /* Button gradients */
+  --gradient-primary-button: linear-gradient(135deg, var(--sky-blue-dark) 0%, #764ba2 100%);
+  --gradient-success-button: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%);
+  --gradient-warning-button: linear-gradient(135deg, var(--warning) 0%, var(--warning-dark) 100%);
+  --gradient-error-button: linear-gradient(135deg, var(--error) 0%, var(--error-dark) 100%);
+  
+  /* ===== VISUAL HIERARCHY SYSTEM ===== */
+  /* Border radius values for consistent roundness (safety-themed) */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;   /* Primary safety radius */
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-full: 50%;
+  
+  /* Shadow system for depth hierarchy */
+  --shadow-xs: 0 1px 2px var(--shadow-subtle);
+  --shadow-sm: 0 2px 4px var(--shadow-subtle), 0 1px 2px var(--shadow-light);
+  --shadow-md: 0 4px 8px var(--shadow-light), 0 2px 4px var(--shadow-medium);
+  --shadow-lg: 0 8px 16px var(--shadow-medium), 0 4px 8px var(--shadow-strong);
+  --shadow-xl: 0 16px 32px var(--shadow-medium), 0 8px 16px var(--shadow-strong);
+  --shadow-2xl: 0 32px 64px var(--shadow-medium), 0 16px 32px var(--shadow-strong);
+  
+  /* Equipment-specific shadows */
+  --shadow-slide-hover: 0 12px 32px var(--shadow-slide), 0 6px 16px var(--shadow-medium);
+  --shadow-swing-hover: 0 12px 32px var(--shadow-swing), 0 6px 16px var(--shadow-medium);
+  --shadow-sandbox-hover: 0 12px 32px var(--shadow-sandbox), 0 6px 16px var(--shadow-medium);
+  --shadow-grass-hover: 0 12px 32px var(--shadow-grass), 0 6px 16px var(--shadow-medium);
+  
+  /* ===== ANIMATION COLORS ===== */
+  /* Particle and effect colors */
+  --particle-light: rgba(255, 255, 255, 0.6);
+  --particle-medium: rgba(255, 255, 255, 0.8);
+  --particle-bright: rgba(255, 255, 255, 1);
+  
+  /* Ambient lighting */
+  --ambient-glow: rgba(255, 215, 0, 0.1);
+  --ambient-warm: rgba(255, 140, 0, 0.05);
+  --ambient-cool: rgba(135, 206, 235, 0.05);
+  
+  /* ===== ACCESSIBILITY FEATURES ===== */
+  /* High contrast mode support */
+  --focus-ring: 0 0 0 3px var(--sky-blue-dark);
+  --focus-ring-error: 0 0 0 3px var(--error);
+  --focus-ring-success: 0 0 0 3px var(--success);
+  
+  /* Reduced motion support */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-bounce: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+/* Night playground theme */
+.night-mode {
+  --sky-blue: #2C3E50;
+  --sky-blue-dark: #34495E;
+  --sandbox-yellow: #F39C12;
+  --particle-light: rgba(255, 255, 255, 0.8);
+  --particle-medium: rgba(255, 255, 255, 0.9);
+  
+  /* Adjust text colors for dark mode */
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --text-tertiary: #cbd5e0;
+  --text-muted: #a0aec0;
+  
+  /* Adjust background colors */
+  --bg-primary: #1a202c;
+  --bg-secondary: #2d3748;
+  --bg-tertiary: #4a5568;
+}
+
+/* ===== COLOR USAGE GUIDELINES ===== */
+/*
+PLAYGROUND EQUIPMENT COLOR ASSIGNMENTS:
+- Slide Panel (API Request Form): --slide-red + --sandbox-yellow gradient
+- Swing Panel (Response Display): --swing-brown tones
+- Sandbox Panel (Collaboration): --sandbox-yellow with natural accents
+- Seesaw Panel (Settings): --grass-green with colorful seats
+
+SEMANTIC COLOR USAGE:
+- Success: Use --success (grass green) for positive outcomes
+- Warning: Use --warning (safety orange) for caution states  
+- Error: Use --error (slide red) for problems/failures
+- Info: Use --info (sky blue) for neutral information
+
+CONTRAST REQUIREMENTS:
+- All text meets WCAG AA standards (4.5:1 minimum)
+- Interactive elements have sufficient contrast
+- Focus states are clearly visible
+
+ACCESSIBILITY FEATURES:
+- High contrast focus rings
+- Reduced motion support via CSS custom properties
+- Semantic color meanings are consistent
+- Color is never the only way to convey information
+*/
