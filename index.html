@@ -2867,7 +2867,7 @@
                                     <div class="api-title">Cat Fact</div>
                                     <div class="api-description">Learn about cats!</div>
                                 </div>
-                                <div class="example-api-card" onclick="loadQuickExample('https://api.quotable.io/random')">
+                                <div class="example-api-card" onclick="loadQuickExample('https://zenquotes.io/api/random')">
                                     <div class="api-icon">💭</div>
                                     <div class="api-title">Random Quote</div>
                                     <div class="api-description">Get inspired!</div>
@@ -3409,7 +3409,7 @@
             // Show feedback
             const apiName = url.includes('joke') ? 'Random Joke' : 
                            url.includes('catfact') ? 'Cat Fact' : 
-                           url.includes('quotable') ? 'Random Quote' : 'API';
+                           url.includes('zenquotes') ? 'Random Quote' : 'API';
             
             showUserFeedback(`🎯 Loaded ${apiName} API! Click "Launch Request!" to try it!`);
             
