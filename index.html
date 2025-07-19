@@ -141,10 +141,152 @@
         }
 
         .main-content {
+            margin-bottom: 30px;
+        }
+
+        .tab-navigation {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.95) 0%, 
+                rgba(248, 250, 252, 0.9) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 8px;
+            border-radius: 20px;
+            box-shadow: 
+                0 8px 24px rgba(0, 0, 0, 0.06),
+                0 4px 12px rgba(0, 0, 0, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            background: transparent;
+            border-radius: 16px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.125rem);
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: -0.01em;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .tab-btn:hover::before {
+            left: 100%;
+        }
+
+        .tab-btn:hover {
+            color: #2d3748;
+            background: rgba(255, 255, 255, 0.6);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 24px rgba(102, 126, 234, 0.25),
+                0 4px 12px rgba(118, 75, 162, 0.15);
+        }
+
+        .tab-btn.active:hover {
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+            box-shadow: 
+                0 12px 32px rgba(102, 126, 234, 0.35),
+                0 6px 16px rgba(118, 75, 162, 0.25);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
-            margin-bottom: 30px;
+        }
+
+        .collaboration-panel-content {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.98) 0%, 
+                rgba(248, 250, 252, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 48px 40px;
+            box-shadow: 
+                0 32px 64px rgba(0, 0, 0, 0.08),
+                0 12px 32px rgba(0, 0, 0, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .collaboration-panel-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                #4ecdc4 0%, 
+                #44a08d 25%, 
+                #667eea 50%, 
+                #764ba2 75%, 
+                #f093fb 100%);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        .collaboration-panel-content h2 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+            color: #1a202c;
+            margin-bottom: 40px;
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            line-height: 1.1;
+        }
+
+        .collaboration-panel-content h3 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+            color: #2d3748;
+            margin: 32px 0 16px 0;
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .panel {
@@ -1077,9 +1219,14 @@
                 font-size: clamp(1rem, 4vw, 1.125rem);
             }
             
-            .main-content {
+            .tab-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+            }
+            
+            .tab-navigation {
+                flex-direction: column;
+                gap: 4px;
             }
             
             .method-selector {
@@ -1102,6 +1249,10 @@
                 font-size: clamp(0.9rem, 4.5vw, 1rem);
                 line-height: 1.5;
             }
+            
+            .tab-btn {
+                padding: 12px 16px;
+            }
         }
     </style>
 </head>
@@ -1117,121 +1268,131 @@
         </div>
 
         <div class="main-content">
-            <div class="panel">
-                <h2>🎯 Build Your API Request</h2>
-                
-                <div class="form-group">
-                    <label class="tooltip" data-tooltip="Choose how you want to talk to the API!">
-                        🎮 Method (How to ask):
-                    </label>
-                    <div class="method-selector">
-                        <button class="method-btn active" data-method="GET">📥 GET</button>
-                        <button class="method-btn" data-method="POST">📤 POST</button>
-                        <button class="method-btn" data-method="PUT">✏️ PUT</button>
-                        <button class="method-btn" data-method="DELETE">🗑️ DELETE</button>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="tooltip" data-tooltip="The web address where the API lives!">
-                        🌐 URL (Where to go):
-                    </label>
-                    <input type="text" class="form-control" id="urlInput" 
-                           placeholder="https://api.example.com/data" 
-                           value="https://dog.ceo/api/breeds/image/random">
-                </div>
-
-                <div class="form-group">
-                    <label class="tooltip" data-tooltip="Extra information to send with your request!">
-                        📋 Headers (Special instructions):
-                    </label>
-                    <div class="headers-section" id="headersSection">
-                        <div class="header-row">
-                            <input type="text" class="header-input" placeholder="Header name (like Content-Type)" value="Content-Type">
-                            <input type="text" class="header-input" placeholder="Header value (like application/json)" value="application/json">
-                            <button class="remove-btn" onclick="removeHeader(this)">×</button>
-                        </div>
-                    </div>
-                    <button class="add-header-btn" onclick="addHeader()">➕ Add Header</button>
-                </div>
-
-                <div class="form-group">
-                    <label class="tooltip" data-tooltip="Data to send with POST/PUT requests!">
-                        📦 Request Body (What to send):
-                    </label>
-                    <textarea class="form-control" id="bodyInput" rows="4" 
-                              placeholder='{"message": "Hello API!"}'></textarea>
-                </div>
-
-                <button class="send-btn" id="sendBtn" onclick="sendRequest()">
-                    🚀 Launch Request!
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="api-tab" onclick="switchTab('api-tab')">
+                    🎯 API Testing
+                </button>
+                <button class="tab-btn" data-tab="collaboration-tab" onclick="switchTab('collaboration-tab')">
+                    👥 Collaboration
                 </button>
             </div>
 
-            <div class="panel">
-                <h2>📬 API Response</h2>
-                <div class="response-area" id="responseArea">
-                    <div class="response-content">
-                        <div class="welcome-message">
-                            <h3>🌟 Ready to Launch!</h3>
-                            <p>Your API response will appear here when you make a request.</p>
-                            <p>Try the example request to see a random dog picture! 🐕</p>
-                            <div class="example-apis">
-                                <div class="example-api" onclick="loadQuickExample('https://official-joke-api.appspot.com/random_joke')">
-                                    😂 Random Joke API
+            <!-- API Tab Content -->
+            <div id="api-tab" class="tab-content active">
+                <div class="tab-grid">
+                    <div class="panel">
+                        <h2>🎯 Build Your API Request</h2>
+                        
+                        <div class="form-group">
+                            <label class="tooltip" data-tooltip="Choose how you want to talk to the API!">
+                                🎮 Method (How to ask):
+                            </label>
+                            <div class="method-selector">
+                                <button class="method-btn active" data-method="GET">📥 GET</button>
+                                <button class="method-btn" data-method="POST">📤 POST</button>
+                                <button class="method-btn" data-method="PUT">✏️ PUT</button>
+                                <button class="method-btn" data-method="DELETE">🗑️ DELETE</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="tooltip" data-tooltip="The web address where the API lives!">
+                                🌐 URL (Where to go):
+                            </label>
+                            <input type="text" class="form-control" id="urlInput" 
+                                   placeholder="https://api.example.com/data" 
+                                   value="https://dog.ceo/api/breeds/image/random">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="tooltip" data-tooltip="Extra information to send with your request!">
+                                📋 Headers (Special instructions):
+                            </label>
+                            <div class="headers-section" id="headersSection">
+                                <div class="header-row">
+                                    <input type="text" class="header-input" placeholder="Header name (like Content-Type)" value="Content-Type">
+                                    <input type="text" class="header-input" placeholder="Header value (like application/json)" value="application/json">
+                                    <button class="remove-btn" onclick="removeHeader(this)">×</button>
                                 </div>
-                                <div class="example-api" onclick="loadQuickExample('https://catfact.ninja/fact')">
-                                    🐱 Cat Fact API
-                                </div>
-                                <div class="example-api" onclick="loadQuickExample('https://api.quotable.io/random')">
-                                    💭 Random Quote API
+                            </div>
+                            <button class="add-header-btn" onclick="addHeader()">➕ Add Header</button>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="tooltip" data-tooltip="Data to send with POST/PUT requests!">
+                                📦 Request Body (What to send):
+                            </label>
+                            <textarea class="form-control" id="bodyInput" rows="4" 
+                                      placeholder='{"message": "Hello API!"}'></textarea>
+                        </div>
+
+                        <button class="send-btn" id="sendBtn" onclick="sendRequest()">
+                            🚀 Launch Request!
+                        </button>
+                    </div>
+
+                    <div class="panel">
+                        <h2>📬 API Response</h2>
+                        <div class="response-area" id="responseArea">
+                            <div class="response-content">
+                                <div class="welcome-message">
+                                    <h3>🌟 Ready to Launch!</h3>
+                                    <p>Your API response will appear here when you make a request.</p>
+                                    <p>Try the example request to see a random dog picture! 🐕</p>
+                                    <div class="example-apis">
+                                        <div class="example-api" onclick="loadQuickExample('https://official-joke-api.appspot.com/random_joke')">
+                                            😂 Random Joke API
+                                        </div>
+                                        <div class="example-api" onclick="loadQuickExample('https://catfact.ninja/fact')">
+                                            🐱 Cat Fact API
+                                        </div>
+                                        <div class="example-api" onclick="loadQuickExample('https://api.quotable.io/random')">
+                                            💭 Random Quote API
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="collaboration-panel">
-            <h2>👥 Collaboration Central</h2>
-            
-            <div class="form-group">
-                <label>🏷️ Your Name:</label>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="text" class="form-control" id="usernameInput" 
-                           placeholder="Enter your name to join the fun!" 
-                           onchange="updateUsername()" 
-                           oninput="updateUsername()"
-                           style="flex: 1;">
-                    <button id="changeUserBtn" onclick="changeUser()" 
-                            style="display: none; background: #ff6b6b; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 12px;">
-                        🔄 Change
-                    </button>
-                </div>
-            </div>
-
-            <h3>🌟 Who's Online:</h3>
-            <div class="users-online" id="usersOnline">
-                <div class="user-badge">
-                    👤 You (not connected yet)
-                </div>
-            </div>
-
-            <h3>📺 Live Activity Feed:</h3>
-            <div class="activity-feed" id="activityFeed">
-                <div class="activity-item">🎉 Welcome to the API Adventure Playground!</div>
-                <div class="activity-item">💡 Connect to see what others are doing!</div>
-                <div class="activity-item">🚀 Try the example request to get started!</div>
-            </div>
-
-            <div class="collections-section">
-                <h3>📚 Shared Collections:</h3>
-                <div id="collectionsArea">
-                    <div class="collection-item" onclick="loadExampleCollection()">
-                        <strong>🎯 Beginner's Fun Pack</strong>
-                        <p>Dog pictures, jokes, and fun facts!</p>
+            <!-- Collaboration Tab Content -->
+            <div id="collaboration-tab" class="tab-content">
+                <div class="collaboration-panel-content">
+                    <h2>👥 Collaboration Central</h2>
+                    
+                    <div class="form-group">
+                        <label>🏷️ Your Name:</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" class="form-control" id="usernameInput" 
+                                   placeholder="Enter your name to join the fun!" 
+                                   onchange="updateUsername()" 
+                                   oninput="updateUsername()"
+                                   style="flex: 1;">
+                            <button id="changeUserBtn" onclick="changeUser()" 
+                                    style="display: none; background: #ff6b6b; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 12px;">
+                                🔄 Change
+                            </button>
+                        </div>
                     </div>
+
+                    <h3>🌟 Who's Online:</h3>
+                    <div class="users-online" id="usersOnline">
+                        <div class="user-badge">
+                            👤 You (not connected yet)
+                        </div>
+                    </div>
+
+                    <h3>📺 Live Activity Feed:</h3>
+                    <div class="activity-feed" id="activityFeed">
+                        <div class="activity-item">🎉 Welcome to the API Adventure Playground!</div>
+                        <div class="activity-item">💡 Connect to see what others are doing!</div>
+                        <div class="activity-item">🚀 Try the example request to get started!</div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -1903,6 +2064,25 @@
         setTimeout(() => {
             document.getElementById('usernameInput').focus();
         }, 1000);
+
+        // Tab switching functionality
+        function switchTab(tabId) {
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked tab button
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+        }
     </script>
 </body>
 </html>
