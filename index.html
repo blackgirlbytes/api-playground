@@ -40,27 +40,50 @@
         }
 
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
             /* Playground Sky Background with animated gradient */
             background: 
                 /* Animated sun rays */
                 radial-gradient(circle at 15% 5%, var(--sun-rays) 0%, transparent 15%),
                 /* Sun */
                 radial-gradient(circle at 15% 5%, var(--sun-color) 0%, transparent 8%),
-                /* Drifting clouds */
-                radial-gradient(ellipse 200px 60px at var(--cloud-x, 20%) var(--cloud-y, 25%), var(--cloud-color) 40%, transparent 70%),
-                radial-gradient(ellipse 150px 40px at var(--cloud-x2, 60%) var(--cloud-y2, 35%), var(--cloud-color) 40%, transparent 70%),
-                radial-gradient(ellipse 180px 50px at var(--cloud-x3, 80%) var(--cloud-y3, 20%), var(--cloud-color) 40%, transparent 70%),
+                /* Detailed fluffy clouds - Cloud 2 */
+                radial-gradient(ellipse 90px 45px at var(--cloud-x2, 60%) var(--cloud-y2, 25%), var(--cloud-color) 60%, transparent 100%),
+                radial-gradient(ellipse 65px 35px at calc(var(--cloud-x2, 60%) - 4%) calc(var(--cloud-y2, 25%) - 2%), var(--cloud-color) 70%, transparent 100%),
+                radial-gradient(ellipse 75px 40px at calc(var(--cloud-x2, 60%) + 3%) calc(var(--cloud-y2, 25%) - 1%), var(--cloud-color) 65%, transparent 100%),
+                radial-gradient(ellipse 50px 25px at calc(var(--cloud-x2, 60%) + 1%) calc(var(--cloud-y2, 25%) + 3%), var(--cloud-color) 75%, transparent 100%),
+                /* Detailed fluffy clouds - Cloud 3 */
+                radial-gradient(ellipse 85px 50px at var(--cloud-x3, 80%) var(--cloud-y3, 15%), var(--cloud-color) 60%, transparent 100%),
+                radial-gradient(ellipse 60px 30px at calc(var(--cloud-x3, 80%) - 3%) calc(var(--cloud-y3, 15%) - 1%), var(--cloud-color) 70%, transparent 100%),
+                radial-gradient(ellipse 70px 35px at calc(var(--cloud-x3, 80%) + 2%) calc(var(--cloud-y3, 15%) - 2%), var(--cloud-color) 65%, transparent 100%),
+                radial-gradient(ellipse 40px 20px at calc(var(--cloud-x3, 80%) + 4%) calc(var(--cloud-y3, 15%) + 1%), var(--cloud-color) 80%, transparent 100%),
+                /* Detailed fluffy clouds - Cloud 5 (center high) */
+                radial-gradient(ellipse 70px 40px at var(--cloud-x5, 45%) var(--cloud-y5, 8%), var(--cloud-color) 60%, transparent 100%),
+                radial-gradient(ellipse 50px 25px at calc(var(--cloud-x5, 45%) - 3%) calc(var(--cloud-y5, 8%) - 1%), var(--cloud-color) 70%, transparent 100%),
+                radial-gradient(ellipse 60px 30px at calc(var(--cloud-x5, 45%) + 2%) calc(var(--cloud-y5, 8%) - 2%), var(--cloud-color) 65%, transparent 100%),
+                radial-gradient(ellipse 40px 18px at calc(var(--cloud-x5, 45%) + 4%) calc(var(--cloud-y5, 8%) + 1%), var(--cloud-color) 80%, transparent 100%),
+                /* Detailed fluffy clouds - Cloud 6 (lower right area) */
+                radial-gradient(ellipse 95px 50px at var(--cloud-x6, 85%) var(--cloud-y6, 45%), var(--cloud-color) 60%, transparent 100%),
+                radial-gradient(ellipse 70px 40px at calc(var(--cloud-x6, 85%) - 4%) calc(var(--cloud-y6, 45%) - 2%), var(--cloud-color) 70%, transparent 100%),
+                radial-gradient(ellipse 80px 35px at calc(var(--cloud-x6, 85%) + 3%) calc(var(--cloud-y6, 45%) - 1%), var(--cloud-color) 65%, transparent 100%),
+                radial-gradient(ellipse 55px 30px at calc(var(--cloud-x6, 85%) + 1%) calc(var(--cloud-y6, 45%) + 3%), var(--cloud-color) 75%, transparent 100%),
+                radial-gradient(ellipse 45px 25px at calc(var(--cloud-x6, 85%) - 2%) calc(var(--cloud-y6, 45%) + 1%), var(--cloud-color) 80%, transparent 100%),
                 /* Sky gradient */
                 linear-gradient(180deg, var(--sky-light) 0%, var(--sky-deep) 100%);
             
-            /* Animated cloud positions */
-            --cloud-x: 20%;
-            --cloud-y: 25%;
+            /* Animated cloud positions - moved leftmost cloud away from sun */
+            --cloud-x: 35%;
+            --cloud-y: 35%;
             --cloud-x2: 60%;
-            --cloud-y2: 35%;
+            --cloud-y2: 25%;
             --cloud-x3: 80%;
-            --cloud-y3: 20%;
+            --cloud-y3: 15%;
+            --cloud-x4: 15%;
+            --cloud-y4: 12%;
+            --cloud-x5: 45%;
+            --cloud-y5: 8%;
+            --cloud-x6: 85%;
+            --cloud-y6: 45%;
             
             animation: 
                 skyAnimation 20s ease-in-out infinite,
@@ -263,22 +286,22 @@
 
         @keyframes cloudDrift {
             0% {
-                --cloud-x: 20%;
+                --cloud-x: 35%;
                 --cloud-x2: 60%;
                 --cloud-x3: 80%;
             }
             33% {
-                --cloud-x: 25%;
+                --cloud-x: 40%;
                 --cloud-x2: 65%;
                 --cloud-x3: 85%;
             }
             66% {
-                --cloud-x: 15%;
+                --cloud-x: 30%;
                 --cloud-x2: 55%;
                 --cloud-x3: 75%;
             }
             100% {
-                --cloud-x: 20%;
+                --cloud-x: 35%;
                 --cloud-x2: 60%;
                 --cloud-x3: 80%;
             }
@@ -403,76 +426,212 @@
 
         .tab-navigation {
             display: flex;
-            gap: 8px;
-            margin-bottom: 32px;
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.95) 0%, 
-                rgba(248, 250, 252, 0.9) 100%);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 8px;
-            border-radius: 20px;
-            box-shadow: 
-                0 8px 24px rgba(0, 0, 0, 0.06),
-                0 4px 12px rgba(0, 0, 0, 0.04),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 16px 24px;
-            border: none;
-            background: transparent;
-            border-radius: 16px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
-            font-size: clamp(1rem, 2.5vw, 1.125rem);
-            font-weight: 600;
-            color: #64748b;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 20px;
+            margin-bottom: 40px;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 20px 0;
             position: relative;
-            overflow: hidden;
-            letter-spacing: -0.01em;
         }
 
+        /* AUTHENTIC wooden playground sign styling */
+        .tab-btn {
+            position: relative;
+            padding: 28px 48px 32px 48px; /* Increased padding for bigger buttons */
+            border: none;
+            outline: none; /* Remove focus outline */
+            /* Matte wood color base - less shiny */
+            background: 
+                /* Subtle wood stain variations */
+                linear-gradient(45deg, 
+                    #6B4423 0%,   /* Darker, matte wood */
+                    #8B5A2B 20%,  /* Medium brown */
+                    #A0522D 40%,  /* Natural brown */
+                    #8B5A2B 60%,  /* Medium brown */
+                    #6B4423 80%,  /* Darker wood */
+                    #5D3A1A 100% /* Deep wood */
+                );
+            /* Match the app's typography - consistent with the rest of the site */
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+            font-size: clamp(1.4rem, 3.5vw, 1.8rem); /* Increased font size */
+            font-weight: 700;
+            color: #F4E4C1; /* Changed to light cream color for better visibility */
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 6px;
+            /* Enhanced text shadow for better readability */
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                1px 1px 2px rgba(0, 0, 0, 0.6),
+                0px 0px 8px rgba(0, 0, 0, 0.3);
+            /* Matte wood board depth and shadows */
+            box-shadow: 
+                0 6px 12px rgba(107, 68, 35, 0.5),
+                0 3px 6px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0px rgba(160, 82, 45, 0.2),
+                inset 0 -1px 0px rgba(0, 0, 0, 0.4),
+                inset 1px 0 0px rgba(139, 90, 43, 0.3),
+                inset -1px 0 0px rgba(93, 58, 26, 0.5);
+            transform: perspective(500px) rotateX(3deg);
+            transform-origin: bottom center;
+            min-width: 220px; /* Increased minimum width */
+            letter-spacing: 0.3px;
+            border: 2px solid #5D3A1A;
+        }
+
+        /* Remove focus outline completely */
+        .tab-btn:focus {
+            outline: none !important;
+            box-shadow: 
+                0 6px 12px rgba(107, 68, 35, 0.5),
+                0 3px 6px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0px rgba(160, 82, 45, 0.2),
+                inset 0 -1px 0px rgba(0, 0, 0, 0.4),
+                inset 1px 0 0px rgba(139, 90, 43, 0.3),
+                inset -1px 0 0px rgba(93, 58, 26, 0.5);
+        }
+
+        /* Wooden post */
         .tab-btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%) rotate(1deg);
+            width: 18px;
+            height: 40px;
+            background: 
+                linear-gradient(180deg, 
+                    #8B4513 0%,
+                    #654321 50%,
+                    #5D4037 100%
+                );
+            border-radius: 0 0 9px 9px;
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.4),
+                inset 1px 0 0 rgba(222, 184, 135, 0.2),
+                inset -1px 0 0 rgba(0, 0, 0, 0.3);
+            z-index: -1;
         }
 
-        .tab-btn:hover::before {
-            left: 100%;
+        /* REALISTIC wood grain texture */
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                /* Primary wood grain lines */
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    rgba(139, 69, 19, 0.4) 1px,
+                    transparent 2px,
+                    transparent 4px,
+                    rgba(101, 67, 33, 0.3) 5px,
+                    transparent 6px,
+                    transparent 10px
+                ),
+                /* Secondary grain pattern */
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(160, 82, 45, 0.2) 1px,
+                    transparent 2px,
+                    transparent 15px
+                ),
+                /* Wood knots - realistic sizes and positions */
+                radial-gradient(ellipse 20px 10px at 25% 30%, rgba(101, 67, 33, 0.7) 0%, rgba(139, 69, 19, 0.4) 40%, transparent 70%),
+                radial-gradient(ellipse 15px 8px at 75% 70%, rgba(93, 64, 55, 0.6) 0%, rgba(101, 67, 33, 0.3) 50%, transparent 80%),
+                radial-gradient(ellipse 12px 6px at 60% 15%, rgba(139, 69, 19, 0.5) 0%, rgba(160, 82, 45, 0.2) 60%, transparent 90%),
+                /* Wood surface imperfections */
+                radial-gradient(circle 2px at 15% 60%, rgba(0, 0, 0, 0.1) 0%, transparent 100%),
+                radial-gradient(circle 1px at 85% 40%, rgba(0, 0, 0, 0.08) 0%, transparent 100%),
+                radial-gradient(circle 1px at 40% 80%, rgba(0, 0, 0, 0.06) 0%, transparent 100%),
+                /* Subtle wood fiber texture */
+                repeating-linear-gradient(
+                    2deg,
+                    transparent 0px,
+                    rgba(222, 184, 135, 0.1) 1px,
+                    transparent 2px,
+                    transparent 8px
+                );
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 1;
+            z-index: -1; /* Move wooden texture behind button text */
+        }
+
+        /* Hover effects - sign creaking */
+        .tab-btn:hover {
+            transform: perspective(500px) rotateX(8deg) translateY(-3px);
+            box-shadow: 
+                0 12px 24px rgba(139, 69, 19, 0.5),
+                0 6px 12px rgba(0, 0, 0, 0.3),
+                inset 0 2px 0px rgba(255, 255, 255, 0.4),
+                inset 0 -2px 0px rgba(139, 69, 19, 0.7),
+                inset 2px 0 0px rgba(222, 184, 135, 0.5),
+                inset -2px 0 0px rgba(160, 82, 45, 0.5);
+            color: #FFFFFF; /* Changed to white for better visibility on hover */
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.9),
+                1px 1px 2px rgba(0, 0, 0, 0.7),
+                0px 0px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Active state - matte pressed wood effect */
+        .tab-btn.active {
+            background: linear-gradient(135deg, 
+                #5D3A1A 0%,     /* Deep wood */
+                #6B4423 25%,    /* Darker brown */
+                #8B5A2B 50%,    /* Medium brown */
+                #6B4423 75%,    /* Darker brown */
+                #5D3A1A 100%    /* Deep wood */
+            );
+            color: #E8D5B7;
+            /* Matte pressed text - no glow */
+            text-shadow: 
+                1px 1px 2px rgba(0, 0, 0, 0.8),
+                0px 1px 3px rgba(0, 0, 0, 0.6);
+            transform: perspective(500px) rotateX(2deg) translateY(-2px);
+            /* Matte pressed shadow - no glow */
+            box-shadow: 
+                0 4px 8px rgba(93, 58, 26, 0.6),
+                0 2px 4px rgba(0, 0, 0, 0.5),
+                inset 0 2px 0px rgba(139, 90, 43, 0.3),
+                inset 0 -2px 0px rgba(0, 0, 0, 0.5),
+                inset 2px 0 0px rgba(107, 68, 35, 0.4),
+                inset -2px 0 0px rgba(93, 58, 26, 0.6);
+        }
+
+        /* Enhanced active hover - still matte */
+        .tab-btn.active:hover {
+            text-shadow: 
+                1px 1px 2px rgba(0, 0, 0, 0.9),
+                0px 1px 4px rgba(0, 0, 0, 0.7);
+            box-shadow: 
+                0 6px 12px rgba(93, 58, 26, 0.7),
+                0 3px 6px rgba(0, 0, 0, 0.6),
+                inset 0 2px 0px rgba(139, 90, 43, 0.4),
+                inset 0 -2px 0px rgba(0, 0, 0, 0.6),
+                inset 2px 0 0px rgba(107, 68, 35, 0.5),
+                inset -2px 0 0px rgba(93, 58, 26, 0.7);
+        }
+
+        /* Wooden sign creaking animation */
+        @keyframes woodenSignCreak {
+            0%, 100% { transform: perspective(500px) rotateX(5deg) rotateZ(0deg); }
+            25% { transform: perspective(500px) rotateX(6deg) rotateZ(0.5deg); }
+            75% { transform: perspective(500px) rotateX(4deg) rotateZ(-0.5deg); }
         }
 
         .tab-btn:hover {
-            color: #2d3748;
-            background: rgba(255, 255, 255, 0.6);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            animation: woodenSignCreak 2s ease-in-out infinite;
         }
 
-        .tab-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 
-                0 8px 24px rgba(102, 126, 234, 0.25),
-                0 4px 12px rgba(118, 75, 162, 0.15);
-        }
-
-        .tab-btn.active:hover {
-            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-            box-shadow: 
-                0 12px 32px rgba(102, 126, 234, 0.35),
-                0 6px 16px rgba(118, 75, 162, 0.25);
-        }
+        /* Removed grass around the sign posts */
 
         .tab-content {
             display: none;
@@ -536,7 +695,7 @@
 
         .collaboration-panel-content h3 {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
-            color: #2d3748;
+            color: #F4E4C1; /* Light cream color to match Clubhouse heading */
             margin: 32px 0 16px 0;
             font-size: clamp(1.25rem, 3vw, 1.5rem);
             font-weight: 700;
@@ -544,6 +703,10 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                1px 1px 2px rgba(0, 0, 0, 0.6),
+                0px 0px 8px rgba(0, 0, 0, 0.4);
         }
 
         /* Update playground equipment colors to use unified system */
@@ -590,82 +753,151 @@
             box-shadow: var(--shadow-slide-hover);
         }
 
-        /* SWING SET PANEL - Response Display */
-        .swing-panel {
-            background: var(--gradient-swing);
+        /* BULLETIN BOARD PANEL - Response Display */
+        .bulletin-board-panel {
+            background: 
+                /* Cork texture */
+                radial-gradient(circle at 20% 30%, #D2B48C 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, #DEB887 1px, transparent 1px),
+                radial-gradient(circle at 40% 80%, #D2B48C 1px, transparent 1px),
+                radial-gradient(circle at 60% 20%, #DEB887 1px, transparent 1px),
+                /* Base cork color */
+                linear-gradient(135deg, #D2B48C 0%, #DEB887 50%, #D2B48C 100%);
+            background-size: 15px 15px, 20px 20px, 25px 25px, 18px 18px, 100% 100%;
             border-radius: var(--radius-lg);
-            padding: 20px;
-            box-shadow: var(--shadow-swing-hover);
-            border: 4px solid var(--swing-brown-dark);
+            padding: 30px 25px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.15),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+            border: 8px solid #8B4513;
             position: relative;
+            overflow: visible;
         }
 
-        .swing-panel::before {
+        /* Wooden frame details */
+        .bulletin-board-panel::before {
             content: '';
             position: absolute;
-            top: -10px;
-            left: 20px;
-            right: 20px;
+            top: -12px;
+            left: -12px;
+            right: -12px;
+            bottom: -12px;
+            background: 
+                /* Wood grain */
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    rgba(139, 69, 19, 0.3) 1px,
+                    transparent 2px,
+                    transparent 8px
+                );
+            border-radius: var(--radius-lg);
+            z-index: -1;
+        }
+
+        /* Corner brackets */
+        .bulletin-board-panel::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 20px;
             height: 20px;
-            background: var(--gradient-swing);
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-md), inset 0 2px 0 rgba(255,255,255,0.2);
+            border-left: 3px solid #654321;
+            border-top: 3px solid #654321;
+            border-radius: 2px;
+            box-shadow: 
+                calc(100% - 40px) 0 0 0 #654321,
+                calc(100% - 40px) 3px 0 0 #654321,
+                0 calc(100% - 40px) 0 0 #654321,
+                3px calc(100% - 40px) 0 0 #654321,
+                calc(100% - 40px) calc(100% - 40px) 0 0 #654321,
+                calc(100% - 37px) calc(100% - 40px) 0 0 #654321;
         }
 
-        .swing-panel::after {
+        /* WOODEN COLLABORATION PANEL - Matching tab button style */
+        .sandbox-panel {
+            position: relative;
+            padding: 40px 32px;
+            border: none;
+            outline: none;
+            /* Matte wood color base - matching tab buttons */
+            background: 
+                /* Subtle wood stain variations */
+                linear-gradient(45deg, 
+                    #6B4423 0%,   /* Darker, matte wood */
+                    #8B5A2B 20%,  /* Medium brown */
+                    #A0522D 40%,  /* Natural brown */
+                    #8B5A2B 60%,  /* Medium brown */
+                    #6B4423 80%,  /* Darker wood */
+                    #5D3A1A 100% /* Deep wood */
+                );
+            border-radius: 6px;
+            /* Matte wood board depth and shadows */
+            box-shadow: 
+                0 6px 12px rgba(107, 68, 35, 0.5),
+                0 3px 6px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0px rgba(160, 82, 45, 0.2),
+                inset 0 -1px 0px rgba(0, 0, 0, 0.4),
+                inset 1px 0 0px rgba(139, 90, 43, 0.3),
+                inset -1px 0 0px rgba(93, 58, 26, 0.5);
+            border: 2px solid #5D3A1A;
+        }
+
+        /* STRONG REALISTIC wood grain texture - full wooden vibe */
+        .sandbox-panel::after {
             content: '';
             position: absolute;
-            top: -10px;
-            left: 15px;
-            width: 15px;
-            height: calc(100% + 20px);
-            background: var(--gradient-swing);
-            border-radius: var(--radius-sm);
-            box-shadow: 2px 0 4px var(--shadow-light), inset 1px 0 0 rgba(255,255,255,0.2);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                /* Primary wood grain lines - STRONG */
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    rgba(139, 69, 19, 0.4) 1px,
+                    transparent 2px,
+                    transparent 4px,
+                    rgba(101, 67, 33, 0.3) 5px,
+                    transparent 6px,
+                    transparent 10px
+                ),
+                /* Secondary grain pattern - STRONG */
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(160, 82, 45, 0.2) 1px,
+                    transparent 2px,
+                    transparent 15px
+                ),
+                /* Wood knots - realistic sizes and positions - STRONG */
+                radial-gradient(ellipse 20px 10px at 25% 30%, rgba(101, 67, 33, 0.7) 0%, rgba(139, 69, 19, 0.4) 40%, transparent 70%),
+                radial-gradient(ellipse 15px 8px at 75% 70%, rgba(93, 64, 55, 0.6) 0%, rgba(101, 67, 33, 0.3) 50%, transparent 80%),
+                radial-gradient(ellipse 12px 6px at 60% 15%, rgba(139, 69, 19, 0.5) 0%, rgba(160, 82, 45, 0.2) 60%, transparent 90%),
+                /* Wood surface imperfections - STRONG */
+                radial-gradient(circle 2px at 15% 60%, rgba(0, 0, 0, 0.1) 0%, transparent 100%),
+                radial-gradient(circle 1px at 85% 40%, rgba(0, 0, 0, 0.08) 0%, transparent 100%),
+                radial-gradient(circle 1px at 40% 80%, rgba(0, 0, 0, 0.06) 0%, transparent 100%),
+                /* Subtle wood fiber texture - STRONG */
+                repeating-linear-gradient(
+                    2deg,
+                    transparent 0px,
+                    rgba(222, 184, 135, 0.1) 1px,
+                    transparent 2px,
+                    transparent 8px
+                );
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 1; /* Full strength wooden texture */
+            z-index: -1; /* Move behind all content */
         }
 
-        .swing-panel .swing-post-right {
-            position: absolute;
-            top: -10px;
-            right: 15px;
-            width: 15px;
-            height: calc(100% + 20px);
-            background: var(--gradient-swing);
-            border-radius: var(--radius-sm);
-            box-shadow: -2px 0 4px var(--shadow-light), inset -1px 0 0 rgba(255,255,255,0.2);
-        }
-
-        /* SANDBOX PANEL - Collaboration Area */
-        .sandbox-panel {
-            background: var(--gradient-sandbox);
-            border: 6px solid var(--swing-brown);
-            border-radius: var(--radius-2xl);
-            padding: 40px 32px;
-            position: relative;
-            box-shadow: var(--shadow-sandbox-hover);
-        }
-
-        .sandbox-panel .bucket-icon {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            width: 40px;
-            height: 35px;
-            background: linear-gradient(135deg, var(--slide-red) 0%, var(--slide-red-light) 100%);
-            border-radius: 5px 5px 15px 15px;
-            box-shadow: var(--shadow-md), inset 0 2px 0 rgba(255,255,255,0.3);
-        }
-
-        .sandbox-panel .shovel-icon {
-            position: absolute;
-            top: 25px;
-            right: 80px;
-            width: 25px;
-            height: 40px;
-            background: var(--gradient-swing);
-            border-radius: var(--radius-xs);
-            transform: rotate(15deg);
-            box-shadow: var(--shadow-sm);
+        /* Remove wooden frame */
+        .sandbox-panel::before {
+            display: none;
         }
 
         /* SEESAW PANEL - Settings/Options */
@@ -940,6 +1172,16 @@
             line-height: 1.2;
         }
 
+        /* Enhanced visibility for sandbox panel heading */
+        .sandbox-panel h2 {
+            color: #F4E4C1; /* Light cream color for better visibility */
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                1px 1px 2px rgba(0, 0, 0, 0.6),
+                0px 0px 8px rgba(0, 0, 0, 0.4);
+            font-weight: 800;
+        }
+
         .form-group {
             margin-bottom: 28px;
         }
@@ -952,6 +1194,20 @@
             color: #2d3748;
             font-size: clamp(1rem, 2vw, 1.125rem);
             letter-spacing: -0.01em;
+            position: relative;
+            z-index: 1; /* Ensure labels appear above wood texture */
+        }
+
+        /* Enhanced visibility for sandbox panel labels */
+        .sandbox-panel .form-group label {
+            color: #F4E4C1; /* Light cream color for better visibility */
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                1px 1px 2px rgba(0, 0, 0, 0.6),
+                0px 0px 8px rgba(0, 0, 0, 0.4);
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
         }
 
         .form-control {
@@ -965,6 +1221,28 @@
             backdrop-filter: blur(8px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 500;
+            position: relative;
+            z-index: 2; /* Ensure form controls appear above wood texture */
+        }
+
+        /* Enhanced visibility for sandbox panel form controls */
+        .sandbox-panel .form-control {
+            background: rgba(255, 255, 255, 0.95); /* More opaque background */
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 2;
+        }
+
+        .sandbox-panel .form-control:focus {
+            background: rgba(255, 255, 255, 1);
+            border-color: #667eea;
+            box-shadow: 
+                0 0 0 4px rgba(102, 126, 234, 0.15),
+                0 8px 24px rgba(102, 126, 234, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
         }
 
         .form-control:focus {
@@ -1570,24 +1848,188 @@
             border: 1px solid rgba(226, 232, 240, 0.4);
         }
 
+        /* RUSTIC CLUB BADGES - Camp/Scout style */
         .user-badge {
-            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 24px;
-            font-weight: 600;
-            font-size: 14px;
+            position: relative;
+            padding: 14px 22px;
+            border: none;
+            outline: none;
+            /* Rustic leather-like base with camp colors */
+            background: 
+                /* Leather texture gradient */
+                linear-gradient(135deg, 
+                    #8B4513 0%,     /* Saddle brown */
+                    #A0522D 25%,    /* Sienna */
+                    #CD853F 50%,    /* Peru */
+                    #D2B48C 75%,    /* Tan */
+                    #DEB887 100%    /* Burlywood */
+                );
+            color: #2F1B14; /* Dark brown text for contrast */
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
-            letter-spacing: -0.01em;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 10px;
+            border-radius: 20px;
+            /* Rustic badge depth and shadows */
             box-shadow: 
-                0 8px 24px rgba(78, 205, 196, 0.25),
-                0 4px 12px rgba(68, 160, 141, 0.15);
+                0 4px 8px rgba(139, 69, 19, 0.4),
+                0 2px 4px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0px rgba(222, 184, 135, 0.6),
+                inset 0 -1px 0px rgba(139, 69, 19, 0.8),
+                inset 1px 0 0px rgba(210, 180, 140, 0.4),
+                inset -1px 0 0px rgba(160, 82, 45, 0.6);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid #8B4513;
+            /* Strong readable text shadow */
+            text-shadow: 
+                1px 1px 2px rgba(255, 255, 255, 0.3),
+                0px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Leather texture overlay for badges */
+        .user-badge::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                /* Leather grain pattern */
+                repeating-linear-gradient(
+                    45deg,
+                    transparent 0px,
+                    rgba(139, 69, 19, 0.1) 1px,
+                    transparent 2px,
+                    transparent 6px
+                ),
+                /* Leather pores */
+                radial-gradient(circle 1px at 20% 30%, rgba(101, 67, 33, 0.3) 0%, transparent 100%),
+                radial-gradient(circle 1px at 80% 70%, rgba(160, 82, 45, 0.2) 0%, transparent 100%),
+                radial-gradient(circle 1px at 40% 80%, rgba(139, 69, 19, 0.3) 0%, transparent 100%);
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Rustic hover effect for badges */
+        .user-badge:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 
+                0 6px 12px rgba(139, 69, 19, 0.5),
+                0 3px 6px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0px rgba(222, 184, 135, 0.8),
+                inset 0 -1px 0px rgba(139, 69, 19, 1),
+                inset 1px 0 0px rgba(210, 180, 140, 0.6),
+                inset -1px 0 0px rgba(160, 82, 45, 0.8);
+            /* Slightly lighter on hover */
+            background: 
+                linear-gradient(135deg, 
+                    #A0522D 0%,     /* Lighter sienna */
+                    #CD853F 25%,    /* Peru */
+                    #D2B48C 50%,    /* Tan */
+                    #DEB887 75%,    /* Burlywood */
+                    #F5DEB3 100%    /* Wheat */
+                );
+        }
+
+        /* RUSTIC CHANGE BUTTON - Small wooden arrow sign */
+        .rustic-change-btn {
             position: relative;
-            overflow: hidden;
+            padding: 8px 16px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            /* Rustic wood base - darker for contrast */
+            background: 
+                linear-gradient(135deg, 
+                    #654321 0%,     /* Dark brown */
+                    #8B4513 25%,    /* Saddle brown */
+                    #A0522D 50%,    /* Sienna */
+                    #8B4513 75%,    /* Saddle brown */
+                    #654321 100%    /* Dark brown */
+                );
+            color: #F4E4C1; /* Light cream text */
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            border-radius: 8px;
+            /* Rustic button depth */
+            box-shadow: 
+                0 3px 6px rgba(101, 67, 33, 0.4),
+                0 1px 3px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0px rgba(160, 82, 45, 0.4),
+                inset 0 -1px 0px rgba(101, 67, 33, 0.8),
+                inset 1px 0 0px rgba(139, 69, 19, 0.3),
+                inset -1px 0 0px rgba(101, 67, 33, 0.6);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #654321;
+            /* Strong text shadow for readability */
+            text-shadow: 
+                1px 1px 2px rgba(0, 0, 0, 0.8),
+                0px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Wood grain texture for change button */
+        .rustic-change-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                /* Wood grain lines */
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    rgba(139, 69, 19, 0.3) 1px,
+                    transparent 2px,
+                    transparent 4px
+                ),
+                /* Wood knots */
+                radial-gradient(ellipse 8px 4px at 70% 30%, rgba(101, 67, 33, 0.5) 0%, transparent 70%);
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* Rustic hover effect for change button */
+        .rustic-change-btn:hover {
+            transform: translateY(-1px) scale(1.05);
+            box-shadow: 
+                0 4px 8px rgba(101, 67, 33, 0.5),
+                0 2px 4px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0px rgba(160, 82, 45, 0.6),
+                inset 0 -1px 0px rgba(101, 67, 33, 1),
+                inset 1px 0 0px rgba(139, 69, 19, 0.5),
+                inset -1px 0 0px rgba(101, 67, 33, 0.8);
+            /* Slightly lighter wood on hover */
+            background: 
+                linear-gradient(135deg, 
+                    #8B4513 0%,     /* Saddle brown */
+                    #A0522D 25%,    /* Sienna */
+                    #CD853F 50%,    /* Peru */
+                    #A0522D 75%,    /* Sienna */
+                    #8B4513 100%    /* Saddle brown */
+                );
+            color: #FFFFFF; /* White text on hover */
+        }
+
+        /* Active/pressed state for change button */
+        .rustic-change-btn:active {
+            transform: translateY(0px) scale(1.02);
+            box-shadow: 
+                0 2px 4px rgba(101, 67, 33, 0.6),
+                0 1px 2px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0px rgba(139, 69, 19, 0.3),
+                inset 0 -1px 0px rgba(0, 0, 0, 0.4),
+                inset 1px 0 0px rgba(101, 67, 33, 0.4),
+                inset -1px 0 0px rgba(101, 67, 33, 0.6);
         }
 
         .user-badge::before {
@@ -1905,9 +2347,15 @@
     <div class="particle"></div>
     
     <!-- Butterflies for micro-animations -->
-    <div class="butterfly butterfly-1"></div>
-    <div class="butterfly butterfly-2"></div>
-    <div class="butterfly butterfly-3"></div>
+    <div class="butterfly butterfly-1">
+        <div class="butterfly-body"></div>
+    </div>
+    <div class="butterfly butterfly-2">
+        <div class="butterfly-body"></div>
+    </div>
+    <div class="butterfly butterfly-3">
+        <div class="butterfly-body"></div>
+    </div>
     
     <!-- Bird chirp indicator -->
     <div class="bird-chirp" id="birdChirp">🐦</div>
@@ -1924,10 +2372,10 @@
             <!-- Tab Navigation -->
             <div class="tab-navigation">
                 <button class="tab-btn active" data-tab="api-tab" onclick="switchTab('api-tab')">
-                    🎯 API Testing
+                    API Testing
                 </button>
                 <button class="tab-btn" data-tab="collaboration-tab" onclick="switchTab('collaboration-tab')">
-                    👥 Collaboration
+                    Collaboration
                 </button>
             </div>
 
@@ -1997,26 +2445,27 @@
                         </button>
                     </div>
 
-                    <div class="panel swing-panel" id="swingPanel">
-                        <div class="swing-post-right"></div>
-                        <div class="chain-left"></div>
-                        <div class="chain-right"></div>
-                        <h2>🎠 Swing Into Responses</h2>
+                    <div class="panel bulletin-board-panel" id="bulletinPanel">
+                        <!-- Push pins -->
+                        <div class="push-pin" style="position: absolute; top: 15px; left: 15px; width: 12px; height: 12px; background: #FF6B6B; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>
+                        <div class="push-pin" style="position: absolute; top: 15px; right: 15px; width: 12px; height: 12px; background: #4ECDC4; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>
+                        <div class="push-pin" style="position: absolute; bottom: 15px; left: 15px; width: 12px; height: 12px; background: #FFE66D; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>
+                        <div class="push-pin" style="position: absolute; bottom: 15px; right: 15px; width: 12px; height: 12px; background: #A8E6CF; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>
+                        
+                        <h2 style="color: #8B4513; font-size: 2rem; font-weight: 800; text-align: center; margin-bottom: 20px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">📋 Responses</h2>
                         <div class="response-area" id="responseArea">
                             <div class="response-content">
                                 <div class="welcome-message">
-                                    <h3 class="toy-heading">🌟 Ready to Launch!</h3>
-                                    <p class="body-text">Your API response will appear here when you make a request.</p>
-                                    <p class="body-text">Try the example request to see a random dog picture! 🐕</p>
+                                    <h3 style="color: #8B4513; font-size: 1.5rem;">🚀 Ready!</h3>
                                     <div class="example-apis">
                                         <div class="example-api" onclick="loadQuickExample('https://official-joke-api.appspot.com/random_joke')">
-                                            😂 Random Joke API
+                                            😂 Random Joke
                                         </div>
                                         <div class="example-api" onclick="loadQuickExample('https://catfact.ninja/fact')">
-                                            🐱 Cat Fact API
+                                            🐱 Cat Fact
                                         </div>
                                         <div class="example-api" onclick="loadQuickExample('https://api.quotable.io/random')">
-                                            💭 Random Quote API
+                                            💭 Random Quote
                                         </div>
                                     </div>
                                 </div>
@@ -2029,18 +2478,7 @@
             <!-- Collaboration Tab Content -->
             <div id="collaboration-tab" class="tab-content">
                 <div class="collaboration-panel-content sandbox-panel">
-                    <div class="bucket-icon"></div>
-                    <div class="shovel-icon"></div>
-                    <div class="castle">
-                        <div class="castle-tower"></div>
-                        <div class="castle-tower"></div>
-                        <div class="castle-tower"></div>
-                    </div>
-                    <div class="footprint"></div>
-                    <div class="footprint"></div>
-                    <div class="footprint"></div>
-                    <div class="footprint"></div>
-                    <h2>🏖️ Sandbox Collaboration</h2>
+                    <h2>Clubhouse</h2>
                     
                     <div class="form-group">
                         <label>🏷️ Your Name:</label>
@@ -2050,8 +2488,8 @@
                                    onchange="updateUsername()" 
                                    oninput="updateUsername()"
                                    style="flex: 1;">
-                            <button id="changeUserBtn" onclick="changeUser()" 
-                                    style="display: none; background: #ff6b6b; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 12px;">
+                            <button id="changeUserBtn" onclick="changeUser()" class="rustic-change-btn"
+                                    style="display: none;">
                                 🔄 Change
                             </button>
                         </div>
@@ -2272,7 +2710,7 @@
             }
 
             if (!isConnected) {
-                alert('🔌 Not connected to the playground yet! Please wait a moment and try again!');
+                showUserFeedback('🔌 Not connected to the playground yet! Please wait a moment and try again!');
                 return;
             }
 
@@ -2329,8 +2767,48 @@
             }, 5000);
         }
 
+        function formatResponseData(data) {
+            if (typeof data === 'string') {
+                try {
+                    data = JSON.parse(data);
+                } catch (e) {
+                    return data; // Return as-is if not valid JSON
+                }
+            }
+            
+            if (typeof data !== 'object' || data === null) {
+                return String(data);
+            }
+            
+            // Format as clean key-value pairs
+            function formatObject(obj, indent = 0) {
+                const spaces = '  '.repeat(indent);
+                let result = '';
+                
+                for (const [key, value] of Object.entries(obj)) {
+                    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+                        result += `${spaces}${key}:\n${formatObject(value, indent + 1)}`;
+                    } else if (Array.isArray(value)) {
+                        result += `${spaces}${key}: [${value.length} items]\n`;
+                        value.forEach((item, index) => {
+                            if (typeof item === 'object') {
+                                result += `${spaces}  ${index + 1}.\n${formatObject(item, indent + 2)}`;
+                            } else {
+                                result += `${spaces}  ${index + 1}. ${item}\n`;
+                            }
+                        });
+                    } else {
+                        result += `${spaces}${key}: ${value}\n`;
+                    }
+                }
+                
+                return result;
+            }
+            
+            return formatObject(data);
+        }
+
         function displayResponse(response, timing) {
-            const responseArea = document.getElementById('responseArea');
             const status = response.status;
             const isSuccess = status >= 200 && status < 300;
             

@@ -317,68 +317,159 @@
 }
 
 /* ===== AMBIENT ANIMATIONS ===== */
-/* Simplified Butterfly Animations */
+/* Realistic Butterfly Animations */
 .butterfly {
     position: fixed;
-    width: 24px;
-    height: 16px;
+    width: 48px;
+    height: 36px;
     pointer-events: none;
     z-index: 1000;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
-.butterfly::before,
+/* Butterfly Body */
+.butterfly-body {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 3px;
+    height: 28px;
+    background: linear-gradient(180deg, #4a2c2a 0%, #6d4c41 50%, #4a2c2a 100%);
+    border-radius: 2px;
+    z-index: 2;
+}
+
+/* Left Wing */
+.butterfly::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    width: 16px;
+    height: 24px;
+    background: 
+        /* Wing pattern spots */
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 3px, transparent 4px),
+        radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.6) 2px, transparent 3px),
+        radial-gradient(circle at 50% 80%, rgba(0, 0, 0, 0.3) 1px, transparent 2px),
+        /* Wing base color */
+        radial-gradient(ellipse 100% 80%, #ff6b35 0%, #ff8f00 40%, #e65100 100%);
+    border-radius: 60% 40% 70% 30%;
+    transform-origin: bottom center;
+    animation: butterflyWing 0.6s ease-in-out infinite alternate;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Right Wing */
 .butterfly::after {
     content: '';
     position: absolute;
-    width: 10px;
-    height: 12px;
-    background: radial-gradient(ellipse, #ff69b4 30%, #ff1493 70%);
-    border-radius: 50% 10% 50% 80%;
-    animation: butterflyWing 0.4s ease-in-out infinite alternate;
+    right: 8px;
+    top: 6px;
+    width: 16px;
+    height: 24px;
+    background: 
+        /* Wing pattern spots */
+        radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.8) 3px, transparent 4px),
+        radial-gradient(circle at 30% 60%, rgba(255, 255, 255, 0.6) 2px, transparent 3px),
+        radial-gradient(circle at 50% 80%, rgba(0, 0, 0, 0.3) 1px, transparent 2px),
+        /* Wing base color */
+        radial-gradient(ellipse 100% 80%, #ff6b35 0%, #ff8f00 40%, #e65100 100%);
+    border-radius: 40% 60% 30% 70%;
+    transform-origin: bottom center;
+    animation: butterflyWing 0.6s ease-in-out infinite alternate;
+    animation-delay: 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
-.butterfly::before {
-    left: 0;
-    transform-origin: bottom right;
-}
-
-.butterfly::after {
-    right: 0;
-    transform-origin: bottom left;
-    animation-delay: 0.2s;
-    background: radial-gradient(ellipse, #9c27b0 30%, #7b1fa2 70%);
-}
-
+/* Different butterfly species with unique colors and patterns */
 .butterfly-1 { 
     top: 20%; 
-    animation: butterflyFloat 12s linear infinite;
-}
-.butterfly-2 { 
-    top: 40%; 
-    animation: butterflyFloat 15s linear infinite;
-    animation-delay: 4s;
-}
-.butterfly-3 { 
-    top: 60%; 
-    animation: butterflyFloat 18s linear infinite;
-    animation-delay: 8s;
+    animation: butterflyFloat 20s linear infinite;
 }
 
-/* Bird Chirp Indicator */
+.butterfly-1::before,
+.butterfly-1::after {
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 3px, transparent 4px),
+        radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.7) 2px, transparent 3px),
+        radial-gradient(circle at 50% 80%, #000 1px, transparent 2px),
+        radial-gradient(ellipse 100% 80%, #ff6b35 0%, #ff8f00 40%, #e65100 100%);
+}
+
+.butterfly-2 { 
+    top: 40%; 
+    animation: butterflyFloat 25s linear infinite;
+    animation-delay: 6s;
+}
+
+.butterfly-2::before,
+.butterfly-2::after {
+    background: 
+        radial-gradient(circle at 40% 25%, rgba(255, 255, 255, 0.8) 3px, transparent 4px),
+        radial-gradient(circle at 60% 70%, rgba(255, 255, 255, 0.6) 2px, transparent 3px),
+        radial-gradient(circle at 30% 50%, #1a237e 2px, transparent 3px),
+        radial-gradient(ellipse 100% 80%, #3f51b5 0%, #5c6bc0 40%, #303f9f 100%);
+}
+
+.butterfly-3 { 
+    top: 60%; 
+    animation: butterflyFloat 30s linear infinite;
+    animation-delay: 12s;
+}
+
+.butterfly-3::before,
+.butterfly-3::after {
+    background: 
+        radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.9) 3px, transparent 4px),
+        radial-gradient(circle at 65% 65%, rgba(255, 255, 255, 0.7) 2px, transparent 3px),
+        radial-gradient(circle at 50% 20%, #000 1px, transparent 2px),
+        radial-gradient(ellipse 100% 80%, #e91e63 0%, #f06292 40%, #c2185b 100%);
+}
+
+/* Flying Birds - REMOVED (looked like spiders) */
+
+/* Enhanced Bird Chirp Indicator */
 .bird-chirp {
     position: fixed;
     top: 15%;
     right: 20%;
-    font-size: 20px;
+    font-size: 24px;
     opacity: 0;
     transform: scale(0);
     pointer-events: none;
     z-index: 1000;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .bird-chirp.active {
     animation: birdChirp 1.5s ease-out;
+}
+
+/* Musical notes that appear with bird chirp */
+.bird-chirp::before {
+    content: '♪';
+    position: absolute;
+    top: -10px;
+    left: -15px;
+    font-size: 14px;
+    opacity: 0;
+    animation: musicalNote 1.5s ease-out;
+    animation-delay: 0.3s;
+}
+
+.bird-chirp::after {
+    content: '♫';
+    position: absolute;
+    top: -8px;
+    right: -15px;
+    font-size: 12px;
+    opacity: 0;
+    animation: musicalNote 1.5s ease-out;
+    animation-delay: 0.6s;
 }
 
 /* ===== GENTLE EQUIPMENT MOVEMENTS ===== */
@@ -534,6 +625,27 @@
     0%, 100% { transform: translateX(0px); }
     25% { transform: translateX(-3px); }
     75% { transform: translateX(3px); }
+}
+
+/* Removed bird keyframes - no longer needed */
+
+@keyframes musicalNote {
+    0% {
+        opacity: 0;
+        transform: translateY(0px) scale(0.5);
+    }
+    30% {
+        opacity: 1;
+        transform: translateY(-8px) scale(1);
+    }
+    70% {
+        opacity: 1;
+        transform: translateY(-16px) scale(0.8);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-24px) scale(0.3);
+    }
 }
 
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
